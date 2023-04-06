@@ -33,7 +33,7 @@ class MovieInfoRepositoryTest {
     private MovieInfoRepository repository;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         var movieInfos = List.of(
                 new MovieInfo(null,
                         "Nobody",
