@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -25,6 +26,36 @@ class MovieInfoServiceTest {
 
     @InjectMocks
     private MovieInfoService service;
+
+    @Test
+    void shouldGetMoviesInfos() {
+
+        var movieInfos = List.of(
+                new MovieInfo(null,
+                        "Nobody",
+                        2021,
+                        List.of("Bob Odenkirk", "Connie Nielsen"),
+                        LocalDate.of(2021, 4, 13)),
+                new MovieInfo(null,
+                        "John Wick: Chapter 4",
+                        2023,
+                        List.of("Keanu Reeves", "Donnie Yen"),
+                        LocalDate.of(2023, 3, 22)),
+                new MovieInfo(null,
+                        "Jason Bourne",
+                        2016,
+                        List.of("Matt Damon", "Tommy lee"),
+                        LocalDate.of(2016, 7, 28))
+        );
+
+        when(repository.findAll()).thenReturn(Flux.fromIterable(movieInfos));
+
+        var movieInfosFlux = service.getMovieInfo();
+
+        StepVerifier.create(movieInfosFlux)
+                .expectNextCount(3)
+                .verifyComplete();
+    }
 
     @Test
     void shouldAddMovieInfo() {
@@ -50,4 +81,5 @@ class MovieInfoServiceTest {
                 .verifyComplete();
 
     }
+
 }

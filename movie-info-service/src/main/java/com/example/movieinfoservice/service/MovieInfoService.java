@@ -5,6 +5,7 @@ import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.repository.MovieInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -12,6 +13,16 @@ import reactor.core.publisher.Mono;
 public class MovieInfoService {
 
     private final MovieInfoRepository repository;
+
+    public Flux<MovieInfoDto> getMovieInfo() {
+        return repository.findAll()
+                .map(movieInfo -> new MovieInfoDto(movieInfo.getId(),
+                        movieInfo.getName(),
+                        movieInfo.getYear(),
+                        movieInfo.getCast(),
+                        movieInfo.getReleaseDate()));
+
+    }
 
     public Mono<MovieInfoDto> addMovieInfo(MovieInfoDto movieInfoDto) {
 
@@ -28,4 +39,5 @@ public class MovieInfoService {
                         savedMovieInfo.getCast(),
                         savedMovieInfo.getReleaseDate()));
     }
+
 }
