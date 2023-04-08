@@ -27,7 +27,7 @@ class MovieInfoServiceTest {
     private MovieInfoService service;
 
     @Test
-    void addMovieInfo() {
+    void shouldAddMovieInfo() {
         var movieInfo = new MovieInfo(null,
                 "Nobody",
                 2021,
