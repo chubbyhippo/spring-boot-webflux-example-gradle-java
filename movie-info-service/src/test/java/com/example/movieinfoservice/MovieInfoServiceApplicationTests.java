@@ -39,17 +39,17 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
     @BeforeEach
     void setUp() {
         var movieInfos = List.of(
-                new MovieInfo(null,
+                new MovieInfo("1",
                         "Nobody",
                         2021,
                         List.of("Bob Odenkirk", "Connie Nielsen"),
                         LocalDate.of(2021, 4, 13)),
-                new MovieInfo(null,
+                new MovieInfo("2",
                         "John Wick: Chapter 4",
                         2023,
                         List.of("Keanu Reeves", "Donnie Yen"),
                         LocalDate.of(2023, 3, 22)),
-                new MovieInfo(null,
+                new MovieInfo("3",
                         "Jason Bourne",
                         2016,
                         List.of("Matt Damon", "Tommy lee"),
@@ -95,7 +95,7 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
 
     @Test
     void shouldAddMovieInfo() {
-        var toBesaveMovieInfoDto = new MovieInfoDto(null,
+        var toBeSavedMovieInfoDto = new MovieInfoDto(null,
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -103,7 +103,7 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
 
         client.post()
                 .uri("/v1/movieinfos")
-                .bodyValue(toBesaveMovieInfoDto)
+                .bodyValue(toBeSavedMovieInfoDto)
                 .exchange()
                 .expectStatus()
                 .isCreated()
@@ -112,6 +112,27 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
                     var id = movieInfoDto.id();
                     assertThat(id).isNotNull();
                 });
+    }
+
+    @Test
+    void shouldUpdateMovieInfo() {
+
+        var toBeUpdatedMovieInfoDto = new MovieInfoDto(null,
+                "Nobody",
+                2021,
+                List.of("Foo", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+        var id = "1";
+        client.post()
+                .uri("/v1/movieinfos/{id}", id)
+                .bodyValue(toBeUpdatedMovieInfoDto)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody()
+                .jsonPath("$.actors[0]")
+                .isEqualTo("Foo");
+
     }
 
 }
