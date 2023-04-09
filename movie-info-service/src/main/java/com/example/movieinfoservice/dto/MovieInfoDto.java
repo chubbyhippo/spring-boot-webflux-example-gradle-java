@@ -7,7 +7,7 @@ public record MovieInfoDto(
         String id,
         String name,
         Integer year,
-        List<String> cast,
+        List<String> actors,
         LocalDate releaseDate
 ) {
 }
