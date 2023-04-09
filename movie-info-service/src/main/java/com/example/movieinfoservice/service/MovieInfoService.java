@@ -24,6 +24,15 @@ public class MovieInfoService {
 
     }
 
+    public Mono<MovieInfoDto> getMovieInfoById(String id) {
+        return repository.findById(id)
+                .map(movieInfo -> new MovieInfoDto(movieInfo.getId(),
+                        movieInfo.getName(),
+                        movieInfo.getYear(),
+                        movieInfo.getCast(),
+                        movieInfo.getReleaseDate()));
+    }
+
     public Mono<MovieInfoDto> addMovieInfo(MovieInfoDto movieInfoDto) {
 
         var movieInfo = new MovieInfo(movieInfoDto.id(),

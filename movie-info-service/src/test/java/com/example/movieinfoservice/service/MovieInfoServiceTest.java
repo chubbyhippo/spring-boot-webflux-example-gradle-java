@@ -27,33 +27,45 @@ class MovieInfoServiceTest {
     @InjectMocks
     private MovieInfoService service;
 
+    private final List<MovieInfo> movieInfos = List.of(
+            new MovieInfo(null,
+                    "Nobody",
+                    2021,
+                    List.of("Bob Odenkirk", "Connie Nielsen"),
+                    LocalDate.of(2021, 4, 13)),
+            new MovieInfo(null,
+                    "John Wick: Chapter 4",
+                    2023,
+                    List.of("Keanu Reeves", "Donnie Yen"),
+                    LocalDate.of(2023, 3, 22)),
+            new MovieInfo(null,
+                    "Jason Bourne",
+                    2016,
+                    List.of("Matt Damon", "Tommy lee"),
+                    LocalDate.of(2016, 7, 28))
+    );
+
     @Test
     void shouldGetMoviesInfos() {
-
-        var movieInfos = List.of(
-                new MovieInfo(null,
-                        "Nobody",
-                        2021,
-                        List.of("Bob Odenkirk", "Connie Nielsen"),
-                        LocalDate.of(2021, 4, 13)),
-                new MovieInfo(null,
-                        "John Wick: Chapter 4",
-                        2023,
-                        List.of("Keanu Reeves", "Donnie Yen"),
-                        LocalDate.of(2023, 3, 22)),
-                new MovieInfo(null,
-                        "Jason Bourne",
-                        2016,
-                        List.of("Matt Damon", "Tommy lee"),
-                        LocalDate.of(2016, 7, 28))
-        );
-
         when(repository.findAll()).thenReturn(Flux.fromIterable(movieInfos));
 
         var movieInfosFlux = service.getMovieInfo();
 
         StepVerifier.create(movieInfosFlux)
                 .expectNextCount(3)
+                .verifyComplete();
+    }
+
+    @Test
+    void shouldGetMovieInfoById() {
+
+        var id = "1";
+        when(repository.findById(id)).thenReturn(Mono.just(movieInfos.get(1)));
+
+        var movieInfoMono = service.getMovieInfoById(id);
+
+        StepVerifier.create(movieInfoMono)
+                .expectNextCount(1)
                 .verifyComplete();
     }
 
