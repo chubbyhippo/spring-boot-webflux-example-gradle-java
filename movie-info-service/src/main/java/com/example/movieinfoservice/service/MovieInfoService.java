@@ -14,23 +14,24 @@ public class MovieInfoService {
 
     private final MovieInfoRepository repository;
 
+    private MovieInfoDto movieInfoMovieInfoDtoMapper(MovieInfo movieInfo) {
+        return new MovieInfoDto(movieInfo.getId(),
+                movieInfo.getName(),
+                movieInfo.getYear(),
+                movieInfo.getCast(),
+                movieInfo.getReleaseDate());
+
+    }
+
     public Flux<MovieInfoDto> getMovieInfo() {
         return repository.findAll()
-                .map(movieInfo -> new MovieInfoDto(movieInfo.getId(),
-                        movieInfo.getName(),
-                        movieInfo.getYear(),
-                        movieInfo.getCast(),
-                        movieInfo.getReleaseDate()));
+                .map(this::movieInfoMovieInfoDtoMapper);
 
     }
 
     public Mono<MovieInfoDto> getMovieInfoById(String id) {
         return repository.findById(id)
-                .map(movieInfo -> new MovieInfoDto(movieInfo.getId(),
-                        movieInfo.getName(),
-                        movieInfo.getYear(),
-                        movieInfo.getCast(),
-                        movieInfo.getReleaseDate()));
+                .map(this::movieInfoMovieInfoDtoMapper);
     }
 
     public Mono<MovieInfoDto> addMovieInfo(MovieInfoDto movieInfoDto) {
@@ -42,11 +43,21 @@ public class MovieInfoService {
                 movieInfoDto.releaseDate());
 
         return repository.save(movieInfo)
-                .map(savedMovieInfo -> new MovieInfoDto(savedMovieInfo.getId(),
-                        savedMovieInfo.getName(),
-                        savedMovieInfo.getYear(),
-                        savedMovieInfo.getCast(),
-                        savedMovieInfo.getReleaseDate()));
+                .map(this::movieInfoMovieInfoDtoMapper);
     }
 
+    public Mono<MovieInfoDto> updateMovieInfo(MovieInfoDto movieInfoDto, String id) {
+
+        return repository.findById(id)
+                .flatMap(movieInfo -> {
+                    movieInfo.setName(movieInfoDto.name());
+                    movieInfo.setYear(movieInfoDto.year());
+                    movieInfo.setCast(movieInfoDto.cast());
+                    movieInfo.setReleaseDate(movieInfoDto.releaseDate());
+
+                    return repository.save(movieInfo)
+                            .map(this::movieInfoMovieInfoDtoMapper);
+
+                });
+    }
 }

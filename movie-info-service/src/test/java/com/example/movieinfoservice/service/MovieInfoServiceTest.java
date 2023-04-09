@@ -28,17 +28,17 @@ class MovieInfoServiceTest {
     private MovieInfoService service;
 
     private final List<MovieInfo> movieInfos = List.of(
-            new MovieInfo(null,
+            new MovieInfo("1",
                     "Nobody",
                     2021,
                     List.of("Bob Odenkirk", "Connie Nielsen"),
                     LocalDate.of(2021, 4, 13)),
-            new MovieInfo(null,
+            new MovieInfo("2",
                     "John Wick: Chapter 4",
                     2023,
                     List.of("Keanu Reeves", "Donnie Yen"),
                     LocalDate.of(2023, 3, 22)),
-            new MovieInfo(null,
+            new MovieInfo("3",
                     "Jason Bourne",
                     2016,
                     List.of("Matt Damon", "Tommy lee"),
@@ -94,4 +94,35 @@ class MovieInfoServiceTest {
 
     }
 
+    @Test
+    void shouldUpdateMovieInfo() {
+        var movieInfo = new MovieInfo("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        var id = "1";
+        when(repository.findById(id)).thenReturn(Mono.just(movieInfo));
+
+        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Foo", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+        var toBeSavedMovieInfo = new MovieInfo("1",
+                "Nobody",
+                2021,
+                List.of("Foo", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        when(repository.save(toBeSavedMovieInfo)).thenReturn(Mono.just(toBeSavedMovieInfo));
+
+        var movieInfoMono = service.updateMovieInfo(toBeUpdatedMovieInfoDto, id);
+
+        StepVerifier.create(movieInfoMono)
+                .expectNextCount(1)
+                .verifyComplete();
+
+    }
 }
