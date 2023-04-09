@@ -81,6 +81,19 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
     }
 
     @Test
+    void shouldGetMovieInfoById() {
+
+        client.get()
+                .uri("/v1/movieinfos/{id}", "1")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(MovieInfoDto.class);
+
+    }
+
+
+    @Test
     void shouldAddMovieInfo() {
         var toBesaveMovieInfoDto = new MovieInfoDto(null,
                 "Nobody",
