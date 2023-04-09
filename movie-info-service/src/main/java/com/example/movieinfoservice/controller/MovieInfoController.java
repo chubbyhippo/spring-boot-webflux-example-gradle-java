@@ -30,4 +30,9 @@ public class MovieInfoController {
     public Mono<MovieInfoDto> addMovieInfo(@RequestBody MovieInfoDto movieInfoDto) {
         return service.addMovieInfo(movieInfoDto).log();
     }
+
+    @PostMapping("/movieinfos/{id}")
+    public Mono<MovieInfoDto> updateMovieInfoById(@RequestBody MovieInfoDto movieInfoDto, @PathVariable String id) {
+        return service.updateMovieInfo(movieInfoDto, id);
+    }
 }

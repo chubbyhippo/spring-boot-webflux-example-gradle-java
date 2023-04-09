@@ -1,9 +1,7 @@
 package com.example.movieinfoservice.controller;
 
-import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -113,5 +111,27 @@ class MovieInfoControllerTest {
                 .isEqualTo(result);
 
 
+    }
+
+    @Test
+    void shouldUpdateMovieInfo() {
+
+        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        var id = "1";
+        when(service.updateMovieInfo(toBeUpdatedMovieInfoDto, id))
+                .thenReturn(Mono.just(toBeUpdatedMovieInfoDto));
+
+        client.post()
+                .uri("/v1/movieinfos/{id}", id)
+                .bodyValue(toBeUpdatedMovieInfoDto)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(MovieInfoDto.class);
     }
 }
