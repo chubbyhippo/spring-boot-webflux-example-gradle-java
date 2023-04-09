@@ -18,7 +18,7 @@ public class MovieInfoService {
         return new MovieInfoDto(movieInfo.getId(),
                 movieInfo.getName(),
                 movieInfo.getYear(),
-                movieInfo.getCast(),
+                movieInfo.getActors(),
                 movieInfo.getReleaseDate());
 
     }
@@ -39,7 +39,7 @@ public class MovieInfoService {
         var movieInfo = new MovieInfo(movieInfoDto.id(),
                 movieInfoDto.name(),
                 movieInfoDto.year(),
-                movieInfoDto.cast(),
+                movieInfoDto.actors(),
                 movieInfoDto.releaseDate());
 
         return repository.save(movieInfo)
@@ -52,7 +52,7 @@ public class MovieInfoService {
                 .flatMap(movieInfo -> {
                     movieInfo.setName(movieInfoDto.name());
                     movieInfo.setYear(movieInfoDto.year());
-                    movieInfo.setCast(movieInfoDto.cast());
+                    movieInfo.setActors(movieInfoDto.actors());
                     movieInfo.setReleaseDate(movieInfoDto.releaseDate());
 
                     return repository.save(movieInfo)
