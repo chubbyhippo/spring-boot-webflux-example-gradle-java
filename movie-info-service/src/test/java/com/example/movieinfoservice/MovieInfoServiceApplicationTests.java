@@ -19,7 +19,7 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
     private WebTestClient client;
 
     @Test
-    // Coverage cheating
+        // Coverage cheating
     void shouldRunMain() {
         try {
             MovieInfoServiceApplication.main(new String[]{});
@@ -27,6 +27,17 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
             assertTrue(true);
         }
         assertTrue(true);
+    }
+
+    @Test
+    void shouldGetMovieInfos() {
+       client.get()
+               .uri("/v1/movieinfos")
+               .exchange()
+               .expectStatus()
+               .isOk()
+               .expectBodyList(MovieInfoDto.class);
+
     }
 
     @Test
