@@ -70,7 +70,6 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
     @Test
     void shouldGetMovieInfos() {
 
-
         client.get()
                 .uri("/v1/movieinfos")
                 .exchange()
@@ -100,8 +99,6 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
                     var id = movieInfoDto.id();
                     assertThat(id).isNotNull();
                 });
-
-
     }
 
 }
