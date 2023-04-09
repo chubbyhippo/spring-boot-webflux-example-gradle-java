@@ -55,6 +55,7 @@ class MovieInfoControllerTest {
                 .expectStatus()
                 .isOk()
                 .expectBodyList(MovieInfoDto.class)
+                .hasSize(3)
                 .returnResult()
                 .getResponseBody();
 
