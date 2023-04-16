@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @WebFluxTest
@@ -133,5 +134,17 @@ class MovieInfoControllerTest {
                 .expectStatus()
                 .isOk()
                 .expectBody(MovieInfoDto.class);
+    }
+
+    @Test
+    void shouldDeleteMovieInfo() {
+        var id = "1";
+        when(service.deleteMovieInfo(anyString()))
+                .thenReturn(Mono.empty());
+        client.delete()
+                .uri("/v1/movieinfos/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isNoContent();
     }
 }
