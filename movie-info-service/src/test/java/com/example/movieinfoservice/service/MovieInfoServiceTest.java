@@ -116,12 +116,27 @@ class MovieInfoServiceTest {
                 List.of("Foo", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        when(repository.save(toBeSavedMovieInfo)).thenReturn(Mono.just(toBeSavedMovieInfo));
+        when(repository.save(toBeSavedMovieInfo))
+                .thenReturn(Mono.just(toBeSavedMovieInfo));
 
         var movieInfoMono = service.updateMovieInfo(toBeUpdatedMovieInfoDto, id);
 
         StepVerifier.create(movieInfoMono)
                 .expectNextCount(1)
+                .verifyComplete();
+
+    }
+
+    @Test
+    void shouldDeleteMovieInfo() {
+
+        when(repository.deleteById(any(String.class)))
+                .thenReturn(Mono.empty());
+        var id = "1";
+        var voidMono = service.deleteMovieInfo(id);
+
+        StepVerifier.create(voidMono)
+                .expectNextCount(0)
                 .verifyComplete();
 
     }

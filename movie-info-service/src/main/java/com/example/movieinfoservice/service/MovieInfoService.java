@@ -60,4 +60,8 @@ public class MovieInfoService {
 
                 });
     }
+
+    public Mono<Void> deleteMovieInfo(String id) {
+        return repository.deleteById(id);
+    }
 }
