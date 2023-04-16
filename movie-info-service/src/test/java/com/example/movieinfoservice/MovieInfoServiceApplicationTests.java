@@ -135,4 +135,20 @@ class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
 
     }
 
+    @Test
+    void shouldDeleteMovieInfo() {
+        var id = "1";
+
+        client.delete()
+                .uri("/v1/movieinfos/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isNoContent();
+
+        var count = repository.findAll()
+                .count();
+
+        assertThat(count.block()).isEqualTo(2L);
+    }
+
 }
