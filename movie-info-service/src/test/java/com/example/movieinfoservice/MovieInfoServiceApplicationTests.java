@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MovieInfoServiceApplicationTests extends MongoDbContainerSetup {
+class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
 
     @Autowired
     private WebTestClient client;
