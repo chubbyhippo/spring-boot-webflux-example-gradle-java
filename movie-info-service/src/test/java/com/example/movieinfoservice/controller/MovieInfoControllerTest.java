@@ -116,13 +116,13 @@ class MovieInfoControllerTest {
 
     @Test
     void shouldValidateMovieInfoDtoWhenAdding() {
-       var invalidMovieInfoDto =  new MovieInfoDto(null,
-               "",
-               -9999,
-               List.of("Bob Odenkirk", "Connie Nielsen"),
-               LocalDate.of(2021, 4, 13));
+        var invalidMovieInfoDto = new MovieInfoDto(null,
+                "",
+                -9999,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
 
-        var responseBody = client.post()
+        client.post()
                 .uri("/v1/movieinfos")
                 .bodyValue(invalidMovieInfoDto)
                 .exchange()
