@@ -7,7 +7,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-public abstract class MongoDbContainerSetup {
+public abstract class AbstractTestcontainers {
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest");
 
