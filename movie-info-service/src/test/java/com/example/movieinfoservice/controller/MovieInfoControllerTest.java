@@ -115,6 +115,23 @@ class MovieInfoControllerTest {
     }
 
     @Test
+    void shouldValidateMovieInfoDtoWhenAdding() {
+       var invalidMovieInfoDto =  new MovieInfoDto(null,
+               "",
+               -9999,
+               List.of("Bob Odenkirk", "Connie Nielsen"),
+               LocalDate.of(2021, 4, 13));
+
+        var responseBody = client.post()
+                .uri("/v1/movieinfos")
+                .bodyValue(invalidMovieInfoDto)
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+
+    }
+
+    @Test
     void shouldUpdateMovieInfo() {
 
         var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",

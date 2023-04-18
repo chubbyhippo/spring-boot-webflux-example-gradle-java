@@ -2,6 +2,7 @@ package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class MovieInfoController {
 
     @PostMapping("/movieinfos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfoDto> addMovieInfo(@RequestBody MovieInfoDto movieInfoDto) {
+    public Mono<MovieInfoDto> addMovieInfo(@RequestBody @Valid MovieInfoDto movieInfoDto) {
         return service.addMovieInfo(movieInfoDto).log();
     }
 
