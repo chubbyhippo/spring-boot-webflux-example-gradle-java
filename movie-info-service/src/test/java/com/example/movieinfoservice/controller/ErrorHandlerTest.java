@@ -2,9 +2,7 @@ package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,9 +11,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @WebFluxTest
 class ErrorHandlerTest {
@@ -25,6 +22,7 @@ class ErrorHandlerTest {
 
     @MockBean
     private MovieInfoService service;
+
     @Test
     void shouldValidateMovieInfoDtoWhenAdding() {
 
