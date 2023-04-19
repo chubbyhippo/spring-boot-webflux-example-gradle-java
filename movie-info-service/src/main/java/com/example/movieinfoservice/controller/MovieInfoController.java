@@ -23,8 +23,9 @@ public class MovieInfoController {
     }
 
     @GetMapping("/movieinfos/{id}")
-    public Mono<MovieInfoDto> getMovieInfoById(@PathVariable String id) {
-        return service.getMovieInfoById(id);
+    public Mono<ResponseEntity<MovieInfoDto>> getMovieInfoById(@PathVariable String id) {
+        return service.getMovieInfoById(id)
+                .map(ResponseEntity::ok);
     }
 
     @PostMapping("/movieinfos")
