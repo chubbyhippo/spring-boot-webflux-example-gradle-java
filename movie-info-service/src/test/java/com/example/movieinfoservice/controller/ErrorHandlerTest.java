@@ -30,7 +30,7 @@ class ErrorHandlerTest {
         var invalidMovieInfoDto = new MovieInfoDto(null,
                 "",
                 -9999,
-                List.of("Bob Odenkirk", "Connie Nielsen"),
+                List.of("", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
         when(service.addMovieInfo(invalidMovieInfoDto)).thenReturn(null);
@@ -41,7 +41,7 @@ class ErrorHandlerTest {
                 .expectStatus()
                 .isBadRequest()
                 .expectBody(String.class)
-                .value(s -> assertThat(s).isEqualTo("must be greater than 0,must not be blank"));
+                .value(s -> assertThat(s).isEqualTo("must be greater than 0,must not be blank,must not be blank"));
 
     }
 }
