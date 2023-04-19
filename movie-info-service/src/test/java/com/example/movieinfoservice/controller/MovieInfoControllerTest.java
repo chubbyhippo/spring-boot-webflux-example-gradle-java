@@ -154,6 +154,27 @@ class MovieInfoControllerTest {
     }
 
     @Test
+    void shouldReturnNotFoundWhenUpdateMovieInfo() {
+
+        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        var id = "1";
+        when(service.updateMovieInfo(toBeUpdatedMovieInfoDto, id))
+                .thenReturn(Mono.empty());
+
+        client.post()
+                .uri("/v1/movieinfos/{id}", id)
+                .bodyValue(toBeUpdatedMovieInfoDto)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+    }
+
+    @Test
     void shouldDeleteMovieInfo() {
         var id = "1";
         when(service.deleteMovieInfo(anyString()))
