@@ -154,7 +154,7 @@ class MovieInfoControllerTest {
     }
 
     @Test
-    void shouldReturnNotFoundWhenUpdateMovieInfo() {
+    void shouldReturnNotFoundWhenUpdateMovieInfoThatDoesNotExist() {
 
         var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
                 "Nobody",
