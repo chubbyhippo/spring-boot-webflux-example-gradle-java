@@ -14,7 +14,7 @@ public record MovieInfoDto(
         @NotNull
         @Positive
         Integer year,
-        List<String> actors,
+        List<@NotBlank String> actors,
         LocalDate releaseDate
 ) {
 }

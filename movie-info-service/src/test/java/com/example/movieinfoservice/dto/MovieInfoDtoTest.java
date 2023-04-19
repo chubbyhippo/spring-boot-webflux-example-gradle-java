@@ -45,7 +45,14 @@ class MovieInfoDtoTest {
                         List.of("Bob Odenkirk", "Connie Nielsen"),
                         LocalDate.of(2021, 4, 13),
                         1,
-                        "must be greater than 0")
+                        "must be greater than 0"),
+                Arguments.of("1",
+                        "Nobody",
+                        2021,
+                        List.of("", "Connie Nielsen"),
+                        LocalDate.of(2021, 4, 13),
+                        1,
+                        "must not be blank")
         );
     }
 
