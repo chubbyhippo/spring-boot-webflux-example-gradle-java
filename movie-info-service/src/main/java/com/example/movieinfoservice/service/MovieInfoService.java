@@ -34,6 +34,16 @@ public class MovieInfoService {
                 .map(this::movieInfoMovieInfoDtoMapper);
     }
 
+    public Flux<MovieInfoDto> getMovieInfosByYear(int year) {
+        return repository.findMovieInfoByYear(year)
+                .map(this::movieInfoMovieInfoDtoMapper);
+    }
+
+    public Flux<MovieInfoDto> getMovieInfosByName(String name) {
+        return repository.findMovieInfoByName(name)
+                .map(this::movieInfoMovieInfoDtoMapper);
+    }
+
     public Mono<MovieInfoDto> addMovieInfo(MovieInfoDto movieInfoDto) {
 
         var movieInfo = new MovieInfo(movieInfoDto.id(),
@@ -63,10 +73,5 @@ public class MovieInfoService {
 
     public Mono<Void> deleteMovieInfo(String id) {
         return repository.deleteById(id);
-    }
-
-    public Flux<MovieInfoDto> getMovieInfosByYear(int year) {
-        return repository.findMovieInfoByYear(year)
-                .map(this::movieInfoMovieInfoDtoMapper);
     }
 }

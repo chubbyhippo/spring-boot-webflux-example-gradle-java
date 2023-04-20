@@ -82,6 +82,17 @@ class MovieInfoServiceTest {
     }
 
     @Test
+    void shouldGetMovieInfoByName() {
+        var name = "Jason Bourne";
+        when(repository.findMovieInfoByName(name)).thenReturn(Flux.just(movieInfos.get(2)));
+
+        var movieInfosByYear = service.getMovieInfosByName(name);
+
+        StepVerifier.create(movieInfosByYear)
+                .expectNextCount(1)
+                .verifyComplete();
+    }
+    @Test
     void shouldAddMovieInfo() {
         var movieInfo = new MovieInfo(null,
                 "Nobody",
