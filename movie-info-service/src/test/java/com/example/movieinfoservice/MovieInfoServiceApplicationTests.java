@@ -92,6 +92,20 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
 
     }
 
+    @Test
+    void shouldGetMovieInfoByYear() {
+
+        client.get()
+                .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
+                        .queryParam("year", 2021)
+                        .build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(MovieInfoDto.class)
+                .hasSize(1);
+
+    }
 
     @Test
     void shouldAddMovieInfo() {
