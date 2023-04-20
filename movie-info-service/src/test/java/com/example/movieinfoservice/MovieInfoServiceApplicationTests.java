@@ -58,13 +58,13 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
 
         repository.saveAll(movieInfos)
                 .log()
-                .subscribe();
+                .blockLast();
     }
 
     @AfterEach
     void tearDown() {
         repository.deleteAll()
-                .subscribe();
+                .block();
     }
 
     @Test
