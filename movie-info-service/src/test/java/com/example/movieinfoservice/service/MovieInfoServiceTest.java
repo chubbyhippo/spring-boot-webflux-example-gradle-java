@@ -70,6 +70,18 @@ class MovieInfoServiceTest {
     }
 
     @Test
+    void shouldGetMovieInfoByYear() {
+        var year = 2021;
+        when(repository.findMovieInfoByYear(year)).thenReturn(Flux.just(movieInfos.get(1)));
+
+        var movieInfosByYear = service.getMovieInfosByYear(year);
+
+        StepVerifier.create(movieInfosByYear)
+                .expectNextCount(1)
+                .verifyComplete();
+    }
+
+    @Test
     void shouldAddMovieInfo() {
         var movieInfo = new MovieInfo(null,
                 "Nobody",
