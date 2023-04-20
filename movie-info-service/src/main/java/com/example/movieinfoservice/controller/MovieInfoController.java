@@ -40,7 +40,7 @@ public class MovieInfoController {
     @PostMapping("/movieinfos")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<MovieInfoDto> addMovieInfo(@RequestBody @Valid MovieInfoDto movieInfoDto) {
-        return service.addMovieInfo(movieInfoDto).log();
+        return service.addMovieInfo(movieInfoDto);
     }
 
     @PostMapping("/movieinfos/{id}")

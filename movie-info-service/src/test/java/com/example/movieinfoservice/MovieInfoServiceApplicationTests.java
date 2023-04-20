@@ -108,6 +108,20 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
     }
 
     @Test
+    void shouldGetMovieInfoByName() {
+
+        client.get()
+                .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
+                        .queryParam("name", "Jason Bourne")
+                        .build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(MovieInfoDto.class)
+                .hasSize(1);
+
+    }
+    @Test
     void shouldAddMovieInfo() {
         var toBeSavedMovieInfoDto = new MovieInfoDto(null,
                 "Nobody",
