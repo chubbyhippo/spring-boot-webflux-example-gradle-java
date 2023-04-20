@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
-class MovieInfoDtoTest {
+class MovieInfoDtoValidationTest {
     private static Validator validator;
 
     @BeforeAll
