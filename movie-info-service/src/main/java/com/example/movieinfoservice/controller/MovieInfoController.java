@@ -20,9 +20,14 @@ public class MovieInfoController {
     private final MovieInfoService service;
 
     @GetMapping("/movieinfos")
-    public Flux<MovieInfoDto> getMovieInfos(@RequestParam Optional<Integer> year) {
-        return year.map(service::getMovieInfosByYear)
-                .orElse(service.getMovieInfo());
+    public Flux<MovieInfoDto> getMovieInfos(@RequestParam Optional<Integer> year, @RequestParam Optional<String> name) {
+        if (year.isPresent()) {
+            return service.getMovieInfosByYear(year.get());
+        } else if (name.isPresent()) {
+            return service.getMovieInfosByName(name.get());
+        } else {
+            return service.getMovieInfos();
+        }
     }
 
     @GetMapping("/movieinfos/{id}")

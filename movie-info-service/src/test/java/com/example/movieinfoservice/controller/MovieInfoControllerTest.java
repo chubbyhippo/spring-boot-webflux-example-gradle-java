@@ -47,7 +47,7 @@ class MovieInfoControllerTest {
                         List.of("Matt Damon", "Tommy lee"),
                         LocalDate.of(2016, 7, 28))
         );
-        when(service.getMovieInfo()).thenReturn(Flux.fromIterable(movieInfoDtos));
+        when(service.getMovieInfos()).thenReturn(Flux.fromIterable(movieInfoDtos));
         var responseBody = client.get()
                 .uri("/v1/movieinfos")
                 .exchange()
@@ -99,6 +99,31 @@ class MovieInfoControllerTest {
         client.get()
                 .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
                         .queryParam("year", year)
+                        .build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(MovieInfoDto.class)
+                .hasSize(1);
+
+    }
+
+    @Test
+    void shouldGetMovieInfoByName() {
+
+        var name = "Nobody" ;
+
+        var movieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        when(service.getMovieInfosByName(name)).thenReturn(Flux.just(movieInfoDto));
+
+        client.get()
+                .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
+                        .queryParam("name", name)
                         .build())
                 .exchange()
                 .expectStatus()

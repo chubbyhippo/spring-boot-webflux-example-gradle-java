@@ -49,7 +49,7 @@ class MovieInfoServiceTest {
     void shouldGetMoviesInfos() {
         when(repository.findAll()).thenReturn(Flux.fromIterable(movieInfos));
 
-        var movieInfosFlux = service.getMovieInfo();
+        var movieInfosFlux = service.getMovieInfos();
 
         StepVerifier.create(movieInfosFlux)
                 .expectNextCount(3)
