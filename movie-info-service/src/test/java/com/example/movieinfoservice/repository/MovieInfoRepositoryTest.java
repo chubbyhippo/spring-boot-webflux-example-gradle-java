@@ -52,6 +52,16 @@ class MovieInfoRepositoryTest extends AbstractTestcontainers {
                 .verifyComplete();
     }
 
+    @Test
+    void shouldGetMovieInfoByName() {
+        var movieInfoByName = repository.findMovieInfoByName("Jason Bourne")
+                .log();
+
+        StepVerifier.create(movieInfoByName)
+                .expectNextCount(1)
+                .verifyComplete();
+    }
+
     @AfterEach
     void tearDown() {
         repository.deleteAll()
