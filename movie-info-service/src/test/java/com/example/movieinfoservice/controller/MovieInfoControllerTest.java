@@ -84,6 +84,31 @@ class MovieInfoControllerTest {
     }
 
     @Test
+    void shouldGetMovieInfoByYear() {
+
+        var year = 2021 ;
+
+        var movieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        when(service.getMovieInfosByYear(year)).thenReturn(Flux.just(movieInfoDto));
+
+        client.get()
+                .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
+                        .queryParam("year", year)
+                        .build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(MovieInfoDto.class)
+                .hasSize(1);
+
+    }
+
+    @Test
     void shouldReturnNotFoundWhenGetMovieInfoByIdReturnMonoEmpty(){
         var id = "1";
 

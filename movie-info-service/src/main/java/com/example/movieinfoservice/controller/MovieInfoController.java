@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/v1")
 @RequiredArgsConstructor
@@ -18,8 +20,9 @@ public class MovieInfoController {
     private final MovieInfoService service;
 
     @GetMapping("/movieinfos")
-    public Flux<MovieInfoDto> getMovieInfos() {
-        return service.getMovieInfo();
+    public Flux<MovieInfoDto> getMovieInfos(@RequestParam Optional<Integer> year) {
+        return year.map(service::getMovieInfosByYear)
+                .orElse(service.getMovieInfo());
     }
 
     @GetMapping("/movieinfos/{id}")
