@@ -84,6 +84,19 @@ class MovieInfoControllerTest {
     }
 
     @Test
+    void shouldReturnNotFoundWhenGetMovieInfoByIdReturnMonoEmpty(){
+        var id = "1";
+
+        when(service.getMovieInfoById(anyString())).thenReturn(Mono.empty());
+
+        client.get()
+                .uri("/v1/movieinfos/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+    }
+
+    @Test
     void shouldAddMovieInfo() {
 
         var toBesaveMovieInfoDto = new MovieInfoDto(null,
