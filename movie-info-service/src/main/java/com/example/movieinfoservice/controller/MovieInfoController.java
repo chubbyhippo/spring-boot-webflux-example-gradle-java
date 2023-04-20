@@ -36,11 +36,11 @@ public class MovieInfoController {
     }
 
     @PostMapping("/movieinfos/{id}")
-    public Mono<ResponseEntity<MovieInfoDto>> updateMovieInfoById(@RequestBody MovieInfoDto movieInfoDto, @PathVariable String id) {
+    public Mono<ResponseEntity<MovieInfoDto>> updateMovieInfoById(@RequestBody MovieInfoDto movieInfoDto,
+                                                                  @PathVariable String id) {
         return service.updateMovieInfo(movieInfoDto, id)
                 .map(ResponseEntity::ok)
-                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()))
-                .log();
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
     @DeleteMapping("/movieinfos/{id}")
