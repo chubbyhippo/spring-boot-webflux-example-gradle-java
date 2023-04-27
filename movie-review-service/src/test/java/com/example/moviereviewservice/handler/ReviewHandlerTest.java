@@ -2,7 +2,6 @@ package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.repository.ReviewRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,15 +9,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.reactive.function.server.MockServerRequest;
-import org.springframework.mock.web.server.MockServerWebExchange;
-import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.server.EntityResponse;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Objects;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +26,7 @@ class ReviewHandlerTest {
     @InjectMocks
     private ReviewHandler handler;
 
+    @SuppressWarnings("unchecked")
     @Test
     void shouldAddReview() {
 
@@ -44,9 +41,12 @@ class ReviewHandlerTest {
         var serverResponseMono = handler.addReview(request);
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    Assertions.assertThat(
-                            serverResponse.statusCode()
-                    ).isEqualTo(HttpStatus.CREATED);
+                    var responseEntity = (EntityResponse<Review>) serverResponse;
+                    var entity = responseEntity.entity();
+
+                    assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.CREATED);
+                    assertThat(entity).isEqualTo(savedReview);
+
                 })
                 .verifyComplete();
 
