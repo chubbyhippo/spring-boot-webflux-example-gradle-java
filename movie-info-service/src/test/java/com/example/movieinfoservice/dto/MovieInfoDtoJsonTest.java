@@ -10,6 +10,7 @@ import org.springframework.boot.test.json.JacksonTester;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
@@ -54,7 +55,7 @@ class MovieInfoDtoJsonTest {
                 }
                 """;
 
-        Assertions.assertThat(json.parse(content)).usingRecursiveComparison()
+        assertThat(json.parse(content)).usingRecursiveComparison()
                 .isEqualTo(new MovieInfoDto("1",
                         "Nobody",
                         2021,
