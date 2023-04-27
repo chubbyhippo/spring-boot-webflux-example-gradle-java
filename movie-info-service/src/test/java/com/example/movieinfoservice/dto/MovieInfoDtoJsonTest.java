@@ -1,5 +1,7 @@
 package com.example.movieinfoservice.dto;
 
+import lombok.SneakyThrows;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -17,7 +19,8 @@ class MovieInfoDtoJsonTest {
     private JacksonTester<MovieInfoDto> json;
 
     @Test
-    void shouldSerialize() throws Exception {
+    @SneakyThrows
+    void shouldSerialize() {
         var movieInfoDto = new MovieInfoDto("1",
                 "Nobody",
                 2021,
@@ -36,6 +39,29 @@ class MovieInfoDtoJsonTest {
                 .isEqualTo(movieInfoDto.actors().get(1));
         assertThat(json.write(movieInfoDto)).extractingJsonPathStringValue("@.releaseDate")
                 .isEqualTo(movieInfoDto.releaseDate().toString());
+    }
+
+    @Test
+    @SneakyThrows
+    void shouldDeserialize() {
+        var content = """
+                {
+                    "id": "1",
+                    "name": "Nobody",
+                    "year": 2021,
+                    "actors": ["Bob Odenkirk", "Connie Nielsen"],
+                    "releaseDate": "2021-04-13"
+                }
+                """;
+
+        Assertions.assertThat(json.parse(content)).usingRecursiveComparison()
+                .isEqualTo(new MovieInfoDto("1",
+                        "Nobody",
+                        2021,
+                        List.of("Bob Odenkirk", "Connie Nielsen"),
+                        LocalDate.of(2021, 4, 13)));
+
+
     }
 
 
