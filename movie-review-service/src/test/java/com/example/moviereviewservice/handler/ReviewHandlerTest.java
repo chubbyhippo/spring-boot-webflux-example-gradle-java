@@ -1,6 +1,7 @@
 package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
+import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +33,7 @@ class ReviewHandlerTest {
 
         var review = new Review(null, "", "da best", 8.9);
         var savedReview = new Review("1", "", "da best", 8.9);
+        var responseDto = new ReviewDto("1", "", "da best", 8.9);
 
         when(repository.save(review)).thenReturn(Mono.just(savedReview));
         var request = MockServerRequest.builder()
@@ -41,11 +43,11 @@ class ReviewHandlerTest {
         var serverResponseMono = handler.addReview(request);
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    var responseEntity = (EntityResponse<Review>) serverResponse;
+                    var responseEntity = (EntityResponse<ReviewDto>) serverResponse;
                     var entity = responseEntity.entity();
 
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.CREATED);
-                    assertThat(entity).isEqualTo(savedReview);
+                    assertThat(entity).isEqualTo(responseDto);
 
                 })
                 .verifyComplete();

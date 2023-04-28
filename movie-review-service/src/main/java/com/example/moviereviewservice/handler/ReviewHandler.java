@@ -1,6 +1,7 @@
 package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
+import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class ReviewHandler {
         return request.bodyToMono(Review.class)
                 .flatMap(repository::save)
                 .flatMap(review -> ServerResponse.status(HttpStatus.CREATED)
-                        .bodyValue(review));
+                        .bodyValue(new ReviewDto(review.getId(),
+                                review.getMovieInfoId(),
+                                review.getComment(),
+                                review.getRating())));
     }
 }
