@@ -17,7 +17,11 @@ public class ReviewHandler {
     private final ReviewRepository repository;
 
     public Mono<ServerResponse> addReview(ServerRequest request) {
-        return request.bodyToMono(Review.class)
+        return request.bodyToMono(ReviewDto.class)
+                .map(reviewDto -> new Review(reviewDto.id(),
+                        reviewDto.movieInfoId(),
+                        reviewDto.comment(),
+                        reviewDto.rating()))
                 .flatMap(repository::save)
                 .flatMap(review -> ServerResponse.status(HttpStatus.CREATED)
                         .bodyValue(new ReviewDto(review.getId(),

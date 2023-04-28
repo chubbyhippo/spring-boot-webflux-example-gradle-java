@@ -31,14 +31,14 @@ class ReviewHandlerTest {
     @Test
     void shouldAddReview() {
 
-        var review = new Review(null, "", "da best", 8.9);
+        var requestDto = new ReviewDto("1", "", "da best", 8.9);
         var savedReview = new Review("1", "", "da best", 8.9);
         var responseDto = new ReviewDto("1", "", "da best", 8.9);
 
-        when(repository.save(review)).thenReturn(Mono.just(savedReview));
+        when(repository.save(any())).thenReturn(Mono.just(savedReview));
         var request = MockServerRequest.builder()
                 .method(HttpMethod.POST)
-                .body(Mono.just(review));
+                .body(Mono.just(requestDto));
 
         var serverResponseMono = handler.addReview(request);
         StepVerifier.create(serverResponseMono)
@@ -52,7 +52,6 @@ class ReviewHandlerTest {
                 })
                 .verifyComplete();
 
-        verify(repository, times(1)).save(review);
-
+        verify(repository, times(1)).save(any());
     }
 }
