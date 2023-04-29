@@ -25,12 +25,13 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
     @BeforeEach
     void setUp() {
         var reviews = List.of(
-                new Review("", "1", "good", 9.0),
-                new Review("", "2", "better", 8.0),
-                new Review("", "3", "best", 7.0)
+                new Review("1", "1", "good", 9.0),
+                new Review("2", "2", "better", 8.0),
+                new Review("3", "3", "best", 7.0)
         );
 
         repository.saveAll(reviews)
+                .log()
                 .blockLast();
 
     }
@@ -54,6 +55,20 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .expectBody(ReviewDto.class)
                 .value(reviewDto -> assertThat(reviewDto.id())
                         .isNotNull());
+
+    }
+
+    @Test
+    void shouldGetReviews() {
+
+        client.get()
+                .uri("/v1/reviews")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(ReviewDto.class)
+                .hasSize(3);
+
 
     }
 
