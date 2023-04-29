@@ -14,6 +14,7 @@ public class ReviewRouter {
     @Bean
     public RouterFunction<ServerResponse> reviewsRoute(ReviewHandler handler) {
         return route()
+                .GET("/v1/reviews", request -> handler.getReviews())
                 .POST("/v1/reviews", handler::addReview)
                 .build();
     }
