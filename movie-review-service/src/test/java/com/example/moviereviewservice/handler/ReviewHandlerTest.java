@@ -12,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.reactive.function.server.MockServerRequest;
 import org.springframework.web.reactive.function.server.EntityResponse;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -31,8 +30,8 @@ class ReviewHandlerTest {
     @InjectMocks
     private ReviewHandler handler;
 
-    @SuppressWarnings("unchecked")
     @Test
+    @SuppressWarnings("unchecked")
     void shouldAddReview() {
 
         var requestDto = new ReviewDto("1", "", "da best", 8.9);
@@ -59,8 +58,8 @@ class ReviewHandlerTest {
         verify(repository, times(1)).save(any());
     }
 
-    @SuppressWarnings("unchecked")
     @Test
+    @SuppressWarnings("unchecked")
     void shouldGetReviews() {
         when(repository.findAll()).thenReturn(Flux.fromIterable(
                 List.of(new Review("1", "1", "good", 7.0),
@@ -83,4 +82,43 @@ class ReviewHandlerTest {
                 .verifyComplete();
 
     }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldUpdateReview() {
+        var id = "1";
+
+        when(repository.findById(id))
+                .thenReturn(Mono.just(new Review("1", "1", "good", 9.0)));
+
+
+        var requestDto = new ReviewDto("1", "1", "the best!!", 9.0);
+        var responseDto = new ReviewDto("1", "1", "the best!!", 9.0);
+
+        var request = MockServerRequest.builder()
+                .pathVariable("id", id)
+                .method(HttpMethod.POST)
+                .body(Mono.just(requestDto));
+
+        var savedReview = new Review("1", "1", "the best!!", 9.0);
+        when(repository.save(any())).thenReturn(Mono.just(savedReview));
+
+        var serverResponseMono = handler.updateReview(request);
+
+        StepVerifier.create(serverResponseMono)
+                .consumeNextWith(serverResponse -> {
+                    var responseEntity = (EntityResponse<ReviewDto>) serverResponse;
+                    var entity = responseEntity.entity();
+
+                    assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
+                    assertThat(entity).isEqualTo(responseDto);
+
+                })
+                .verifyComplete();
+
+        verify(repository, times(1)).save(any());
+
+
+    }
+
 }

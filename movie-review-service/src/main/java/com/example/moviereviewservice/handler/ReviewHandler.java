@@ -43,8 +43,20 @@ public class ReviewHandler {
                 .body(reviewDtoFlux, Review.class);
     }
 
-//    public Mono<ServerResponse> updateReview(ServerRequest request) {
-//        request.bodyToMono(ReviewDto.class)
-//                .
-//    }
+    public Mono<ServerResponse> updateReview(ServerRequest request) {
+        var id = request.pathVariable("id");
+        var existingReview = repository.findById(id);
+
+        return existingReview.flatMap(review -> request.bodyToMono(ReviewDto.class)
+                .map(reviewDto -> new Review(review.getId(),
+                        reviewDto.movieInfoId(),
+                        reviewDto.comment(),
+                        reviewDto.rating()))
+                .flatMap(repository::save)
+                .flatMap(savedReview -> ServerResponse.ok()
+                        .bodyValue(new ReviewDto(savedReview.getId(),
+                                savedReview.getMovieInfoId(),
+                                savedReview.getComment(),
+                                savedReview.getRating()))));
+    }
 }
