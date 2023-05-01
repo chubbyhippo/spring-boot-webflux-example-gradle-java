@@ -19,7 +19,7 @@ public class ReviewHandler {
 
     public Mono<ServerResponse> addReview(ServerRequest request) {
         return request.bodyToMono(ReviewDto.class)
-                .map(reviewDto -> new Review(reviewDto.id(),
+                .map(reviewDto -> new Review(null,
                         reviewDto.movieInfoId(),
                         reviewDto.comment(),
                         reviewDto.rating()))
@@ -42,4 +42,9 @@ public class ReviewHandler {
         return ServerResponse.ok()
                 .body(reviewDtoFlux, Review.class);
     }
+
+//    public Mono<ServerResponse> updateReview(ServerRequest request) {
+//        request.bodyToMono(ReviewDto.class)
+//                .
+//    }
 }
