@@ -3,6 +3,7 @@ package com.example.moviereviewservice.router;
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.handler.ReviewHandler;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -68,6 +69,30 @@ class ReviewRouterTest {
                 .hasSize(3);
 
         verify(handler, times(1)).getReviews();
+    }
+
+    @Test
+    void shouldUpdateReview() {
+        var serverResponseMono = ServerResponse.status(HttpStatus.OK)
+                .bodyValue(new ReviewDto("1", "", "da best", 0.9));
+
+        when(handler.updateReview(any())).thenReturn(serverResponseMono);
+
+        var id = "1";
+
+        client.put()
+                .uri("/v1/reviews/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(ReviewDto.class)
+                .value(reviewDto -> {
+                    var updatedRating = reviewDto.rating();
+                    Assertions.assertThat(updatedRating).isEqualTo(0.9);
+                });
+
+
+        verify(handler, times(1)).updateReview(any());
     }
 
 }
