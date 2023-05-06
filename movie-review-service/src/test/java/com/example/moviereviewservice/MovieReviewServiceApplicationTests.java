@@ -69,6 +69,23 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .expectBodyList(ReviewDto.class)
                 .hasSize(3);
 
+    }
+
+    @Test
+    void shouldUpdateReview() {
+
+        var id = "1";
+        var toBeUpdated = new ReviewDto("", "4", "bad", 0.0);
+
+        client.put()
+                .uri("/v1/reviews/{id}", id)
+                .bodyValue(toBeUpdated)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(ReviewDto.class)
+                .value(reviewDto -> assertThat(reviewDto.rating())
+                        .isEqualTo(0.0));
 
     }
 
