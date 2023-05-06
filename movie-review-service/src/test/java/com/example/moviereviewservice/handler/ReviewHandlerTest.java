@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.mock.web.reactive.function.server.MockServerRequest;
 import org.springframework.web.reactive.function.server.EntityResponse;
 import reactor.core.publisher.Flux;
@@ -118,7 +119,26 @@ class ReviewHandlerTest {
 
         verify(repository, times(1)).save(any());
 
+    }
 
+    @Test
+    void shouldDeleteReview() {
+        var id = "1";
+
+        when(repository.findById(id))
+                .thenReturn(Mono.just(new Review("1", "1", "good", 9.0)));
+        when(repository.deleteById(id))
+                .thenReturn(Mono.empty());
+
+        var request = MockServerRequest.builder()
+                .pathVariable("id", id)
+                .method(HttpMethod.POST)
+                .build();
+
+        var serverResponseMono = handler.deleteReview(request);
+
+        StepVerifier.create(serverResponseMono)
+                .verifyComplete();
     }
 
 }
