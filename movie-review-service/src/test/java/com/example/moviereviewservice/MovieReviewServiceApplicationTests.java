@@ -89,4 +89,21 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
 
     }
 
+    @Test
+    void shouldDeleteReview() {
+
+        var id = "1";
+        client.delete()
+                .uri("/v1/reviews/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isOk();
+
+        var count = repository.findAll()
+                .count()
+                .block();
+
+        assertThat(count).isEqualTo(2L);
+    }
+
 }
