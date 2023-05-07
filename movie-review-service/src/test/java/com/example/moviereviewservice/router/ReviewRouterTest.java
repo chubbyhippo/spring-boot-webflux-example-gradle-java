@@ -95,4 +95,18 @@ class ReviewRouterTest {
         verify(handler, times(1)).updateReview(any());
     }
 
+    @Test
+    void shouldDeleteReview() {
+
+        when(handler.deleteReview(any())).thenReturn(Mono.empty());
+        var id = "1";
+
+        client.delete()
+                .uri("/v1/reviews/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isOk();
+
+    }
+
 }
