@@ -97,7 +97,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .uri("/v1/reviews/{id}", id)
                 .exchange()
                 .expectStatus()
-                .isOk();
+                .isNoContent();
 
         var count = repository.findAll()
                 .count()
