@@ -67,7 +67,7 @@ public class ReviewHandler {
 
         return existingReview
                 .flatMap(review -> repository.deleteById(id))
-                .flatMap(review -> ServerResponse.noContent()
-                        .build());
+                .then(Mono.defer(() -> ServerResponse.noContent()
+                        .build()));
     }
 }
