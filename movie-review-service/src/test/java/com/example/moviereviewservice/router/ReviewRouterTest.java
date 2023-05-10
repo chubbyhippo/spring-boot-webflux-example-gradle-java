@@ -58,7 +58,7 @@ class ReviewRouterTest {
                                 new ReviewDto("3", "3", "best", 8.0))),
                         ReviewDto.class);
 
-        when(handler.getReviews()).thenReturn(serverResponseMono);
+        when(handler.getReviews(any())).thenReturn(serverResponseMono);
 
         client.get()
                 .uri("/v1/reviews")
@@ -68,7 +68,7 @@ class ReviewRouterTest {
                 .expectBodyList(ReviewDto.class)
                 .hasSize(3);
 
-        verify(handler, times(1)).getReviews();
+        verify(handler, times(1)).getReviews(any());
     }
 
     @Test
