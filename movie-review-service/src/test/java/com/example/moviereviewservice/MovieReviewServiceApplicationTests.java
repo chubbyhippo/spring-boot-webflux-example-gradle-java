@@ -27,7 +27,8 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
         var reviews = List.of(
                 new Review("1", "1", "good", 9.0),
                 new Review("2", "2", "better", 8.0),
-                new Review("3", "3", "best", 7.0)
+                new Review("3", "3", "best", 7.0),
+                new Review("4", "3", "da best", 8.0)
         );
 
         repository.saveAll(reviews)
@@ -67,10 +68,26 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .expectStatus()
                 .isOk()
                 .expectBodyList(ReviewDto.class)
-                .hasSize(3);
+                .hasSize(4);
 
     }
 
+    @Test
+    void shouldGetReviewsByMovieInfoId() {
+
+        var movieInfoId = "3";
+
+        client.get()
+                .uri(uriBuilder -> uriBuilder.path("/v1/reviews")
+                        .queryParam("movieInfoId", movieInfoId)
+                        .build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(ReviewDto.class)
+                .hasSize(2);
+
+    }
     @Test
     void shouldUpdateReview() {
 
@@ -103,7 +120,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .count()
                 .block();
 
-        assertThat(count).isEqualTo(2L);
+        assertThat(count).isEqualTo(3L);
     }
 
 }
