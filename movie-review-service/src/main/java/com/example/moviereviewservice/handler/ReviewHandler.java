@@ -11,6 +11,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class ReviewHandler {
@@ -31,16 +33,23 @@ public class ReviewHandler {
                                 review.getRating())));
     }
 
-    public Mono<ServerResponse> getReviews() {
+    public Mono<ServerResponse> getReviews(ServerRequest request) {
+        var movieInfoIdOptional = request.queryParam("movieInfoId");
 
-
-        Flux<ReviewDto> reviewDtoFlux = repository.findAll()
+        Flux<ReviewDto> reviewDtoFlux;
+        reviewDtoFlux = movieInfoIdOptional.map(s -> repository.findReviewsByMovieInfoId(s)
                 .map(review -> new ReviewDto(review.getId(),
                         review.getMovieInfoId(),
                         review.getComment(),
-                        review.getRating()));
+                        review.getRating()))).orElseGet(() -> repository.findAll()
+                .map(review -> new ReviewDto(review.getId(),
+                        review.getMovieInfoId(),
+                        review.getComment(),
+                        review.getRating())));
         return ServerResponse.ok()
                 .body(reviewDtoFlux, Review.class);
+
+
     }
 
     public Mono<ServerResponse> updateReview(ServerRequest request) {
@@ -70,4 +79,5 @@ public class ReviewHandler {
                 .then(Mono.defer(() -> ServerResponse.noContent()
                         .build()));
     }
+
 }

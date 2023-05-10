@@ -66,7 +66,11 @@ class ReviewHandlerTest {
                         new Review("2", "2", "better", 9.0),
                         new Review("3", "3", "best", 8.0))));
 
-        var serverResponseMono = handler.getReviews();
+        var request = MockServerRequest.builder()
+                .method(HttpMethod.GET)
+                .build();
+
+        var serverResponseMono = handler.getReviews(request);
 
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
@@ -76,6 +80,36 @@ class ReviewHandlerTest {
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
                     StepVerifier.create(entity)
                             .expectNextCount(3)
+                            .verifyComplete();
+
+                })
+                .verifyComplete();
+
+    }
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldGetReviewsByMovieInfoId() {
+        var movieInfoId = "1";
+
+        when(repository.findReviewsByMovieInfoId(movieInfoId))
+                .thenReturn(Flux.fromIterable(List.of(new Review("1", "1", "good", 9.0),
+                        new Review("2", "1", "bad", 0.0))));
+
+        var request = MockServerRequest.builder()
+                .queryParam("movieInfoId", movieInfoId)
+                .method(HttpMethod.GET)
+                .build();
+
+        var serverResponseMono = handler.getReviews(request);
+
+        StepVerifier.create(serverResponseMono)
+                .consumeNextWith(serverResponse -> {
+                    var responseEntity = (EntityResponse<Flux<ReviewDto>>) serverResponse;
+                    var entity = responseEntity.entity();
+
+                    assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
+                    StepVerifier.create(entity)
+                            .expectNextCount(2)
                             .verifyComplete();
 
                 })
@@ -146,5 +180,7 @@ class ReviewHandlerTest {
 
 
     }
+
+
 
 }
