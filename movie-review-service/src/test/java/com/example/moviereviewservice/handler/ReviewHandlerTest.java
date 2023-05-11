@@ -3,6 +3,7 @@ package com.example.moviereviewservice.handler;
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.repository.ReviewRepository;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +29,9 @@ class ReviewHandlerTest {
     @Mock
     private ReviewRepository repository;
 
+    @Mock
+    private Validator validator;
+
     @InjectMocks
     private ReviewHandler handler;
 
@@ -34,11 +39,12 @@ class ReviewHandlerTest {
     @SuppressWarnings("unchecked")
     void shouldAddReview() {
 
-        var requestDto = new ReviewDto("1", "", "da best", 8.9);
-        var savedReview = new Review("1", "", "da best", 8.9);
-        var responseDto = new ReviewDto("1", "", "da best", 8.9);
+        var requestDto = new ReviewDto(null, "1", "da best", 8.9);
+        var savedReview = new Review("1", "1", "da best", 8.9);
+        var responseDto = new ReviewDto("1", "1", "da best", 8.9);
 
         when(repository.save(any())).thenReturn(Mono.just(savedReview));
+        when(validator.validate(any(ReviewDto.class))).thenReturn(new HashSet<>());
         var request = MockServerRequest.builder()
                 .method(HttpMethod.POST)
                 .body(Mono.just(requestDto));
@@ -86,6 +92,7 @@ class ReviewHandlerTest {
                 .verifyComplete();
 
     }
+
     @Test
     @SuppressWarnings("unchecked")
     void shouldGetReviewsByMovieInfoId() {
@@ -180,7 +187,6 @@ class ReviewHandlerTest {
 
 
     }
-
 
 
 }
