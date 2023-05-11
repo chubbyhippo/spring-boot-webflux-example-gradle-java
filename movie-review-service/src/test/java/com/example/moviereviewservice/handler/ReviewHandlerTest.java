@@ -2,6 +2,7 @@ package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
@@ -62,6 +63,22 @@ class ReviewHandlerTest {
                 .verifyComplete();
 
         verify(repository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldThrowValidationExceptionWhenAddingInvalidReviewDto() {
+        var requestDto = new ReviewDto(null, "1", "da best", 8.9);
+
+        when(validator.validate(any(ReviewDto.class))).thenThrow(ReviewDtoException.class);
+        var request = MockServerRequest.builder()
+                .method(HttpMethod.POST)
+                .body(Mono.just(requestDto));
+
+        var serverResponseMono = handler.addReview(request);
+        StepVerifier.create(serverResponseMono)
+                .expectError(ReviewDtoException.class)
+                .verify();
+
     }
 
     @Test
