@@ -48,6 +48,5 @@ class ReviewDtoJsonTest {
                         "good",
                         9.0));
 
-
     }
 }
