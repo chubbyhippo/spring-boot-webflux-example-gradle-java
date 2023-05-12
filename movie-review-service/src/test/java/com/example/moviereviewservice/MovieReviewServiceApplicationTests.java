@@ -60,6 +60,20 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
     }
 
     @Test
+    void shouldReturnBadRequestStatusWhenAddingInvalidReview() {
+        var toBeSavedDto = new ReviewDto(null, "", "bad", -1.0);
+        client.post()
+                .uri("/v1/reviews")
+                .bodyValue(toBeSavedDto)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody(String.class)
+                .value(s -> assertThat(s).isEqualTo("must be greater than or equal to 0, must not be blank"));
+
+    }
+
+    @Test
     void shouldGetReviews() {
 
         client.get()
@@ -88,6 +102,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .hasSize(2);
 
     }
+
     @Test
     void shouldUpdateReview() {
 

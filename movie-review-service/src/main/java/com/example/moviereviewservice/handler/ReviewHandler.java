@@ -48,7 +48,7 @@ public class ReviewHandler {
             var errorMessage = constraintViolations.stream()
                     .map(ConstraintViolation::getMessage)
                     .sorted()
-                    .collect(Collectors.joining(","));
+                    .collect(Collectors.joining(", "));
             throw new ReviewDtoException(errorMessage);
         }
 
