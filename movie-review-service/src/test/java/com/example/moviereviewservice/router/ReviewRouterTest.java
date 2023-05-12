@@ -2,7 +2,6 @@ package com.example.moviereviewservice.router;
 
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
-import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @WebFluxTest
-@Import({ReviewRouter.class, ReviewHandler.class})
+@Import(ReviewRouter.class)
 class ReviewRouterTest {
 
     @Autowired
