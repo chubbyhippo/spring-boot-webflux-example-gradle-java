@@ -2,6 +2,7 @@ package com.example.moviereviewservice.router;
 
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,26 @@ class ReviewRouterTest {
                 .expectStatus()
                 .isCreated()
                 .expectBody(ReviewDto.class);
+
+        verify(handler, times(1)).addReview(any());
+    }
+
+    @Test
+    void shouldReturnBadRequest() {
+
+
+        var serverResponseMono = ServerResponse.status(HttpStatus.BAD_REQUEST)
+                .build();
+        when(handler.addReview(any())).thenReturn(serverResponseMono);
+
+        var review = new Review(null, "", "da best", -8.9);
+
+        client.post()
+                .uri("/v1/reviews")
+                .bodyValue(review)
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
 
         verify(handler, times(1)).addReview(any());
     }
