@@ -21,8 +21,6 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 
         if (ex instanceof ReviewDtoException) {
             exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
-        } else {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return exchange.getResponse()
                 .writeWith(Mono.just(errorMessage));
