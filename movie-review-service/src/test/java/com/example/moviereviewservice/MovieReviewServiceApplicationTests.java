@@ -13,6 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
@@ -21,6 +22,11 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
     private ReviewRepository repository;
     @Autowired
     private WebTestClient client;
+
+    @Test
+    void shouldLoadMain() {
+        assertDoesNotThrow(() -> MovieReviewServiceApplication.main(new String[]{}));
+    }
 
     @BeforeEach
     void setUp() {
