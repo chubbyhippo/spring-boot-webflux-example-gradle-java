@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
@@ -26,15 +26,11 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
     private MovieInfoRepository repository;
 
     @Test
-        // Coverage cheating
     void shouldRunMain() {
-        try {
-            MovieInfoServiceApplication.main(new String[]{});
-        } catch (Exception e) {
-            assertTrue(true);
-        }
-        assertTrue(true);
+        assertThatNoException().isThrownBy(() -> MovieInfoServiceApplication.main(new String[]{}));
+
     }
+
 
     @BeforeEach
     void setUp() {
@@ -121,6 +117,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .hasSize(1);
 
     }
+
     @Test
     void shouldAddMovieInfo() {
         var toBeSavedMovieInfoDto = new MovieInfoDto(null,
