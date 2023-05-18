@@ -3,6 +3,7 @@ package com.example.moviereviewservice.handler;
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.exception.ReviewDtoException;
+import com.example.moviereviewservice.exception.ReviewNotFoundException;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -74,7 +75,9 @@ public class ReviewHandler {
 
     public Mono<ServerResponse> updateReview(ServerRequest request) {
         var id = request.pathVariable("id");
-        var existingReview = repository.findById(id);
+        var existingReview = repository.findById(id)
+                .switchIfEmpty(Mono.error(new ReviewNotFoundException("Review not found for the given id " + id)));
+
 
         return existingReview.flatMap(review -> request.bodyToMono(ReviewDto.class)
                 .map(reviewDto -> new Review(review.getId(),

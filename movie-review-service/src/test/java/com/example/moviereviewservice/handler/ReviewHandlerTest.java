@@ -3,6 +3,7 @@ package com.example.moviereviewservice.handler;
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.exception.ReviewDtoException;
+import com.example.moviereviewservice.exception.ReviewNotFoundException;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
@@ -176,6 +177,26 @@ class ReviewHandlerTest {
 
         verify(repository, times(1)).save(any());
 
+    }
+
+    @Test
+    void shouldThrowReviewNotFoundException() {
+        var id = "1";
+        when(repository.findById(id))
+                .thenReturn(Mono.error(new ReviewNotFoundException("Review not found for the given id " + id)));
+
+        var requestDto = new ReviewDto("1", "1", "the best!!", 9.0);
+
+        var request = MockServerRequest.builder()
+                .pathVariable("id", id)
+                .method(HttpMethod.POST)
+                .body(Mono.just(requestDto));
+
+        var serverResponseMono = handler.updateReview(request);
+
+        StepVerifier.create(serverResponseMono)
+                .expectError(ReviewNotFoundException.class)
+                .verify();
     }
 
     @Test

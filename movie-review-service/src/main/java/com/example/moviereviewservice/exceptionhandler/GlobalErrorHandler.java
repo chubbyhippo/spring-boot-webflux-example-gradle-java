@@ -1,6 +1,7 @@
 package com.example.moviereviewservice.exceptionhandler;
 
 import com.example.moviereviewservice.exception.ReviewDtoException;
+import com.example.moviereviewservice.exception.ReviewNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 
         if (ex instanceof ReviewDtoException) {
             exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
+        } else if (ex instanceof ReviewNotFoundException) {
+
+            exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
         }
         return exchange.getResponse()
                 .writeWith(Mono.just(errorMessage));
