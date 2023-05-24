@@ -1,5 +1,6 @@
 package com.example.moviereviewservice;
 
+import com.example.moviereviewservice.config.AbstractTestcontainers;
 import com.example.moviereviewservice.document.Review;
 import com.example.moviereviewservice.dto.ReviewDto;
 import com.example.moviereviewservice.repository.ReviewRepository;
