@@ -1,5 +1,6 @@
 package com.example.movieinfoservice;
 
+import com.example.movieinfoservice.config.AbstractTestcontainers;
 import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.repository.MovieInfoRepository;

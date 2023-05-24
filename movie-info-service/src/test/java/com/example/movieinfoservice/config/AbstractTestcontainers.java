@@ -1,4 +1,4 @@
-package com.example.movieinfoservice;
+package com.example.movieinfoservice.config;
 
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.DynamicPropertyRegistry;
