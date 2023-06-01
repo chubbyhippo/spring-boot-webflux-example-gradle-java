@@ -28,7 +28,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
 
     @Test
     void shouldRunMain() {
-        assertThatNoException().isThrownBy(() -> MovieInfoServiceApplication.main(new String[]{}));
+        assertThatNoException().isThrownBy(() -> TestMovieInfoServiceApplication.main(new String[]{}));
 
     }
 
