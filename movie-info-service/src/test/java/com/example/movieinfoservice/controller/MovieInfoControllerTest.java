@@ -1,11 +1,13 @@
 package com.example.movieinfoservice.controller;
 
+import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,34 +28,35 @@ class MovieInfoControllerTest {
 
     @MockBean
     private MovieInfoService service;
-
+    @SpyBean
+    private MovieInfoConverter converter;
 
     @Test
     void shouldGetMovieInfoDtos() {
-        List<MovieInfoDto> movieInfoDtos = List.of(
-                new MovieInfoDto("1",
+        var movieInfos = List.of(
+                new MovieInfo("1",
                         "Nobody",
                         2021,
                         List.of("Bob Odenkirk", "Connie Nielsen"),
                         LocalDate.of(2021, 4, 13)),
-                new MovieInfoDto("2",
+                new MovieInfo("2",
                         "John Wick: Chapter 4",
                         2023,
                         List.of("Keanu Reeves", "Donnie Yen"),
                         LocalDate.of(2023, 3, 22)),
-                new MovieInfoDto("3",
+                new MovieInfo("3",
                         "Jason Bourne",
                         2016,
                         List.of("Matt Damon", "Tommy lee"),
                         LocalDate.of(2016, 7, 28))
         );
-        when(service.getMovieInfos()).thenReturn(Flux.fromIterable(movieInfoDtos));
+        when(service.getMovieInfos()).thenReturn(Flux.fromIterable(movieInfos));
         var responseBody = client.get()
                 .uri("/v1/movieinfos")
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfo.class)
                 .hasSize(3)
                 .returnResult()
                 .getResponseBody();
@@ -86,7 +89,7 @@ class MovieInfoControllerTest {
     @Test
     void shouldGetMovieInfoByYear() {
 
-        var year = 2021 ;
+        var year = 2021;
 
         var movieInfoDto = new MovieInfoDto("1",
                 "Nobody",
@@ -111,7 +114,7 @@ class MovieInfoControllerTest {
     @Test
     void shouldGetMovieInfoByName() {
 
-        var name = "Nobody" ;
+        var name = "Nobody";
 
         var movieInfoDto = new MovieInfoDto("1",
                 "Nobody",
@@ -134,7 +137,7 @@ class MovieInfoControllerTest {
     }
 
     @Test
-    void shouldReturnNotFoundWhenGetMovieInfoByIdReturnMonoEmpty(){
+    void shouldReturnNotFoundWhenGetMovieInfoByIdReturnMonoEmpty() {
         var id = "1";
 
         when(service.getMovieInfoById(anyString())).thenReturn(Mono.empty());

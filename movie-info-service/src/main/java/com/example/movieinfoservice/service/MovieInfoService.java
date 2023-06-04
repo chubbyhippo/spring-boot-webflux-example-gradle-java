@@ -23,9 +23,8 @@ public class MovieInfoService {
 
     }
 
-    public Flux<MovieInfoDto> getMovieInfos() {
-        return repository.findAll()
-                .map(this::movieInfoMovieInfoDtoMapper);
+    public Flux<MovieInfo> getMovieInfos() {
+        return repository.findAll();
 
     }
 
