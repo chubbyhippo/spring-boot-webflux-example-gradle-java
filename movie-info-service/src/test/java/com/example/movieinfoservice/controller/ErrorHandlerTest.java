@@ -24,6 +24,7 @@ class ErrorHandlerTest {
     @MockBean
     private MovieInfoService service;
     @SpyBean
+    @SuppressWarnings("unused")
     private MovieInfoConverter converter;
 
     @Test
