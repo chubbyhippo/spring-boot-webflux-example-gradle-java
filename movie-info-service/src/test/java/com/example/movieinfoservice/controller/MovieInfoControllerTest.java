@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.movieinfoservice.controller;
 
-import com.example.movieinfoservice.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

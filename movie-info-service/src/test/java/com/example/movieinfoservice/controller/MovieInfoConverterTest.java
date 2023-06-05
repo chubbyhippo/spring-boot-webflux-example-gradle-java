@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

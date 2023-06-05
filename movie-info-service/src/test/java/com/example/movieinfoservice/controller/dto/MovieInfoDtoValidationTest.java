@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.dto;
+package com.example.movieinfoservice.controller.dto;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MovieInfoDtoValidationTest {
     private static Validator validator;

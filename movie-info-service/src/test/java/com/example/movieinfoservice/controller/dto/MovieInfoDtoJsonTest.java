@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.dto;
+package com.example.movieinfoservice.controller.dto;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;

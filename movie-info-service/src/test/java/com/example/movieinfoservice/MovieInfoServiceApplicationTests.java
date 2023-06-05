@@ -2,7 +2,7 @@ package com.example.movieinfoservice;
 
 import com.example.movieinfoservice.config.AbstractTestcontainers;
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import com.example.movieinfoservice.repository.MovieInfoRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
