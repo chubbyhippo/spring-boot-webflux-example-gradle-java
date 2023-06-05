@@ -25,7 +25,8 @@ public class MovieInfoController {
         Flux<MovieInfoDto> movieInfoDtos;
 
         if (year.isPresent()) {
-            return service.getMovieInfosByYear(year.get());
+            return service.getMovieInfosByYear(year.get())
+                    .map(converter::toDto);
         } else if (name.isPresent()) {
             return service.getMovieInfosByName(name.get());
         } else {

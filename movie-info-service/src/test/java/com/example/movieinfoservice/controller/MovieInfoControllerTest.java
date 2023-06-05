@@ -92,13 +92,13 @@ class MovieInfoControllerTest {
 
         var year = 2021;
 
-        var movieInfoDto = new MovieInfoDto("1",
+        var movieInfo = new MovieInfo("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        when(service.getMovieInfosByYear(year)).thenReturn(Flux.just(movieInfoDto));
+        when(service.getMovieInfosByYear(year)).thenReturn(Flux.just(movieInfo));
 
         client.get()
                 .uri(uriBuilder -> uriBuilder.path("/v1/movieinfos")
