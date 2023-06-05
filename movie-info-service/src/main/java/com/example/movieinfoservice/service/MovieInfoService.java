@@ -36,9 +36,8 @@ public class MovieInfoService {
         return repository.findMovieInfoByYear(year);
     }
 
-    public Flux<MovieInfoDto> getMovieInfosByName(String name) {
-        return repository.findMovieInfoByName(name)
-                .map(this::movieInfoMovieInfoDtoMapper);
+    public Flux<MovieInfo> getMovieInfosByName(String name) {
+        return repository.findMovieInfoByName(name);
     }
 
     public Mono<MovieInfo> addMovieInfo(MovieInfo movieInfo) {

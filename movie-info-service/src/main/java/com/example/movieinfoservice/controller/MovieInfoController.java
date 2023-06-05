@@ -22,19 +22,15 @@ public class MovieInfoController {
 
     @GetMapping("/movieinfos")
     public Flux<MovieInfoDto> getMovieInfos(@RequestParam Optional<Integer> year, @RequestParam Optional<String> name) {
-        Flux<MovieInfoDto> movieInfoDtos;
 
-        if (year.isPresent()) {
-            return service.getMovieInfosByYear(year.get())
-                    .map(converter::toDto);
-        } else if (name.isPresent()) {
-            return service.getMovieInfosByName(name.get());
-        } else {
-            movieInfoDtos = service.getMovieInfos()
-                    .map(converter::toDto);
-        }
+        return year.map(integer -> service.getMovieInfosByYear(integer)
+                        .map(converter::toDto))
+                .orElseGet(() -> name
+                        .map(s -> service.getMovieInfosByName(s)
+                                .map(converter::toDto))
+                        .orElseGet(() -> service.getMovieInfos()
+                                .map(converter::toDto)));
 
-        return movieInfoDtos;
     }
 
     @GetMapping("/movieinfos/{id}")
