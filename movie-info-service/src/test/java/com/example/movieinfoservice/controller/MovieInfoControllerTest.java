@@ -70,13 +70,13 @@ class MovieInfoControllerTest {
 
         var id = "1";
 
-        var movieInfoDto = new MovieInfoDto("1",
+        var movieInfo = new MovieInfo("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        when(service.getMovieInfoById(id)).thenReturn(Mono.just(movieInfoDto));
+        when(service.getMovieInfoById(id)).thenReturn(Mono.just(movieInfo));
 
         client.get()
                 .uri("/v1/movieinfos/{id}", id)
