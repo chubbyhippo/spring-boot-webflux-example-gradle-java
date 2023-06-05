@@ -1,7 +1,6 @@
 package com.example.movieinfoservice.service;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import com.example.movieinfoservice.repository.MovieInfoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -122,12 +121,6 @@ class MovieInfoServiceTest {
 
         var id = "1";
         when(repository.findById(id)).thenReturn(Mono.just(movieInfo));
-
-        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
-                "Nobody",
-                2021,
-                List.of("Foo", "Connie Nielsen"),
-                LocalDate.of(2021, 4, 13));
         var toBeSavedMovieInfo = new MovieInfo("1",
                 "Nobody",
                 2021,
@@ -137,7 +130,7 @@ class MovieInfoServiceTest {
         when(repository.save(toBeSavedMovieInfo))
                 .thenReturn(Mono.just(toBeSavedMovieInfo));
 
-        var movieInfoMono = service.updateMovieInfo(toBeUpdatedMovieInfoDto, id);
+        var movieInfoMono = service.updateMovieInfo(toBeSavedMovieInfo, id);
 
         StepVerifier.create(movieInfoMono)
                 .expectNextCount(1)

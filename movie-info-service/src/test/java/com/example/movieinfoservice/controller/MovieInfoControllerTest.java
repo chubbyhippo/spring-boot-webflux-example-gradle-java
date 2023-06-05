@@ -226,9 +226,11 @@ class MovieInfoControllerTest {
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
+        var toBeUpdatedMovieInfo = converter.toDocument(toBeUpdatedMovieInfoDto);
+
         var id = "1";
-        when(service.updateMovieInfo(toBeUpdatedMovieInfoDto, id))
-                .thenReturn(Mono.just(toBeUpdatedMovieInfoDto));
+        when(service.updateMovieInfo(toBeUpdatedMovieInfo, id))
+                .thenReturn(Mono.just(toBeUpdatedMovieInfo));
 
         client.post()
                 .uri("/v1/movieinfos/{id}", id)
@@ -247,9 +249,10 @@ class MovieInfoControllerTest {
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
+        var toBeUpdatedMovie = converter.toDocument(toBeUpdatedMovieInfoDto);
 
         var id = "1";
-        when(service.updateMovieInfo(toBeUpdatedMovieInfoDto, id))
+        when(service.updateMovieInfo(toBeUpdatedMovie, id))
                 .thenReturn(Mono.empty());
 
         client.post()

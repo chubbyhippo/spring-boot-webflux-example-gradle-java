@@ -1,7 +1,6 @@
 package com.example.movieinfoservice.service;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import com.example.movieinfoservice.repository.MovieInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,15 +12,6 @@ import reactor.core.publisher.Mono;
 public class MovieInfoService {
 
     private final MovieInfoRepository repository;
-
-    private MovieInfoDto movieInfoMovieInfoDtoMapper(MovieInfo movieInfo) {
-        return new MovieInfoDto(movieInfo.getId(),
-                movieInfo.getName(),
-                movieInfo.getYear(),
-                movieInfo.getActors(),
-                movieInfo.getReleaseDate());
-
-    }
 
     public Flux<MovieInfo> getMovieInfos() {
         return repository.findAll();
@@ -44,17 +34,16 @@ public class MovieInfoService {
         return repository.save(movieInfo);
     }
 
-    public Mono<MovieInfoDto> updateMovieInfo(MovieInfoDto movieInfoDto, String id) {
+    public Mono<MovieInfo> updateMovieInfo(MovieInfo movieInfo, String id) {
 
         return repository.findById(id)
-                .flatMap(movieInfo -> {
-                    movieInfo.setName(movieInfoDto.name());
-                    movieInfo.setYear(movieInfoDto.year());
-                    movieInfo.setActors(movieInfoDto.actors());
-                    movieInfo.setReleaseDate(movieInfoDto.releaseDate());
+                .flatMap(foundMovieInfo -> {
+                    foundMovieInfo.setName(movieInfo.getName());
+                    foundMovieInfo.setYear(movieInfo.getYear());
+                    foundMovieInfo.setActors(movieInfo.getActors());
+                    foundMovieInfo.setReleaseDate(movieInfo.getReleaseDate());
 
-                    return repository.save(movieInfo)
-                            .map(this::movieInfoMovieInfoDtoMapper);
+                    return repository.save(foundMovieInfo);
 
                 });
     }
