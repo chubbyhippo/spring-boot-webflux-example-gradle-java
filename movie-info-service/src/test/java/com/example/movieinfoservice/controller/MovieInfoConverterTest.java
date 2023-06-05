@@ -2,14 +2,12 @@ package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.dto.MovieInfoDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MovieInfoConverterTest {
 
