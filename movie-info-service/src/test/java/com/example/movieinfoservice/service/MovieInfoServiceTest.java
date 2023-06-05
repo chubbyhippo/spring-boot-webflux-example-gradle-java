@@ -92,6 +92,7 @@ class MovieInfoServiceTest {
                 .expectNextCount(1)
                 .verifyComplete();
     }
+
     @Test
     void shouldAddMovieInfo() {
         var movieInfo = new MovieInfo(null,
@@ -100,16 +101,10 @@ class MovieInfoServiceTest {
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        var toBesaveMovieInfoDto = new MovieInfoDto(null,
-                "Nobody",
-                2021,
-                List.of("Bob Odenkirk", "Connie Nielsen"),
-                LocalDate.of(2021, 4, 13));
-
         when(repository.save(any(MovieInfo.class)))
                 .thenReturn(Mono.just(movieInfo));
 
-        var movieInfoMono = service.addMovieInfo(toBesaveMovieInfoDto);
+        var movieInfoMono = service.addMovieInfo(movieInfo);
 
         StepVerifier.create(movieInfoMono)
                 .expectNextCount(1)

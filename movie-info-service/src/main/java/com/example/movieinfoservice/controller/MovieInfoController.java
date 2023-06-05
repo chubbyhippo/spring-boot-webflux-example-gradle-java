@@ -48,7 +48,9 @@ public class MovieInfoController {
     @PostMapping("/movieinfos")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<MovieInfoDto> addMovieInfo(@RequestBody @Valid MovieInfoDto movieInfoDto) {
-        return service.addMovieInfo(movieInfoDto);
+        var movieInfo = converter.toDocument(movieInfoDto);
+        return service.addMovieInfo(movieInfo)
+                .map(converter::toDto);
     }
 
     @PostMapping("/movieinfos/{id}")

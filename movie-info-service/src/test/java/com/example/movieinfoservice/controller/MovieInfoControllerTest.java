@@ -153,28 +153,40 @@ class MovieInfoControllerTest {
     @Test
     void shouldAddMovieInfo() {
 
-        var toBesaveMovieInfoDto = new MovieInfoDto(null,
+        var toBeSavedMovieInfo = new MovieInfo(null,
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        var result = new MovieInfoDto("1",
+        var savedMovieInfo = new MovieInfo("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        when(service.addMovieInfo(toBesaveMovieInfoDto))
-                .thenReturn(Mono.just(result));
+        var toBeSavedMovieInfoDto = new MovieInfoDto(null,
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
 
-        StepVerifier.create(service.addMovieInfo(toBesaveMovieInfoDto))
+        var resultSavedMovieInfoDto = new MovieInfoDto("1",
+                "Nobody",
+                2021,
+                List.of("Bob Odenkirk", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
+        when(service.addMovieInfo(toBeSavedMovieInfo))
+                .thenReturn(Mono.just(savedMovieInfo));
+
+        StepVerifier.create(service.addMovieInfo(toBeSavedMovieInfo))
                 .expectNextCount(1)
                 .verifyComplete();
 
         var responseBody = client.post()
                 .uri("/v1/movieinfos")
-                .bodyValue(toBesaveMovieInfoDto)
+                .bodyValue(toBeSavedMovieInfoDto)
                 .exchange()
                 .expectStatus()
                 .isCreated()
@@ -183,7 +195,7 @@ class MovieInfoControllerTest {
                 .getResponseBody();
 
         assertThat(responseBody)
-                .isEqualTo(result);
+                .isEqualTo(resultSavedMovieInfoDto);
 
 
     }

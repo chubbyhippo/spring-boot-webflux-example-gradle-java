@@ -41,16 +41,8 @@ public class MovieInfoService {
                 .map(this::movieInfoMovieInfoDtoMapper);
     }
 
-    public Mono<MovieInfoDto> addMovieInfo(MovieInfoDto movieInfoDto) {
-
-        var movieInfo = new MovieInfo(movieInfoDto.id(),
-                movieInfoDto.name(),
-                movieInfoDto.year(),
-                movieInfoDto.actors(),
-                movieInfoDto.releaseDate());
-
-        return repository.save(movieInfo)
-                .map(this::movieInfoMovieInfoDtoMapper);
+    public Mono<MovieInfo> addMovieInfo(MovieInfo movieInfo) {
+        return repository.save(movieInfo);
     }
 
     public Mono<MovieInfoDto> updateMovieInfo(MovieInfoDto movieInfoDto, String id) {

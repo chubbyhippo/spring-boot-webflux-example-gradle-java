@@ -1,5 +1,6 @@
 package com.example.movieinfoservice.controller;
 
+import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.dto.MovieInfoDto;
 import com.example.movieinfoservice.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
@@ -31,13 +32,19 @@ class ErrorHandlerTest {
     void shouldValidateMovieInfoDtoWhenAdding() {
 
 
+        var invalidMovieInfo = new MovieInfo(null,
+                "",
+                -9999,
+                List.of("", "Connie Nielsen"),
+                LocalDate.of(2021, 4, 13));
+
         var invalidMovieInfoDto = new MovieInfoDto(null,
                 "",
                 -9999,
                 List.of("", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        when(service.addMovieInfo(invalidMovieInfoDto)).thenReturn(null);
+        when(service.addMovieInfo(invalidMovieInfo)).thenReturn(null);
         client.post()
                 .uri("/v1/movieinfos")
                 .bodyValue(invalidMovieInfoDto)
