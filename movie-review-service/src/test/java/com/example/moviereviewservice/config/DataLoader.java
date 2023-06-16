@@ -16,7 +16,7 @@ public class DataLoader {
     private final ReviewRepository repository;
 
     @Bean
-    public ApplicationRunner loader() {
+    ApplicationRunner loader() {
         return args -> {
             var reviews = List.of(
                     new Review("1", "1", "good", 9.0),
