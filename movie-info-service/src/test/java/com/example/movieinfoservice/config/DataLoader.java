@@ -17,7 +17,7 @@ public class DataLoader {
     private final MovieInfoRepository repository;
 
     @Bean
-    public ApplicationRunner loader() {
+    ApplicationRunner loader() {
         return args -> {
 
             var movieInfos = List.of(
