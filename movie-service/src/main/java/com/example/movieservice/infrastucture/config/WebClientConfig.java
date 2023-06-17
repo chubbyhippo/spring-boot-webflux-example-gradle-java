@@ -12,7 +12,7 @@ public class WebClientConfig {
     @Bean
     MovieInfoDtoService movieInfoDtoService() {
         var webClient = WebClient.builder()
-                .baseUrl("http://localhost:8080/")
+                .baseUrl("http://localhost:8080/v1/movieinfos")
                 .build();
         var factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient)).build();
         return factory.createClient(MovieInfoDtoService.class);
