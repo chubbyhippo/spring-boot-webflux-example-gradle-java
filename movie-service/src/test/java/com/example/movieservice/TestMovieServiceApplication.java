@@ -1,4 +1,5 @@
-import com.example.movieservice.MovieServiceApplication;
+package com.example.movieservice;
+
 import com.example.movieservice.config.AbstractTestcontainers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
