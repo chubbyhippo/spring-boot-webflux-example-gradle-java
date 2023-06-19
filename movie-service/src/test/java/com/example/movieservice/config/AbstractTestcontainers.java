@@ -21,7 +21,7 @@ public abstract class AbstractTestcontainers {
 
         mockServerClient = new MockServerClient(mockServerContainer.getHost(),
                 mockServerContainer.getServerPort());
-        registry.add("", mockServerContainer::getEndpoint);
+        registry.add("infrastructure.url.movie-info-service", mockServerContainer::getEndpoint);
 
     }
 
