@@ -14,13 +14,14 @@ public abstract class AbstractTestcontainers {
     private static final MockServerContainer mockServerContainer = new MockServerContainer(DockerImageName
             .parse("mockserver/mockserver:5.15.0"));
 
-    private static MockServerClient mockServerClient;
+    public static MockServerClient mockServerClient;
 
     @DynamicPropertySource
     static void mongoProperties(DynamicPropertyRegistry registry) {
 
         mockServerClient = new MockServerClient(mockServerContainer.getHost(),
                 mockServerContainer.getServerPort());
+        registry.add("", mockServerContainer::getEndpoint);
 
     }
 
