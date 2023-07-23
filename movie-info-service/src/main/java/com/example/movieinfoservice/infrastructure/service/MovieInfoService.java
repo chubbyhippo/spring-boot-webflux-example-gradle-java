@@ -1,7 +1,7 @@
-package com.example.movieinfoservice.service;
+package com.example.movieinfoservice.infrastructure.service;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.repository.MovieInfoRepository;
+import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.repository;
+package com.example.movieinfoservice.infrastructure.repository;
 
 import com.example.movieinfoservice.document.MovieInfo;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

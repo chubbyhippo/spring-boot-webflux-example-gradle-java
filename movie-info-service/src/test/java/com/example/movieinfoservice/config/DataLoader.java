@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.config;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.repository.MovieInfoRepository;
+import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;

@@ -2,7 +2,7 @@ package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
 import com.example.movieinfoservice.controller.dto.MovieInfoResource;
-import com.example.movieinfoservice.service.MovieInfoService;
+import com.example.movieinfoservice.infrastructure.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
