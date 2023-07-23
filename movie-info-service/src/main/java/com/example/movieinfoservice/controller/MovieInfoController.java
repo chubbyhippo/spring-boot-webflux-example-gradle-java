@@ -18,7 +18,7 @@ import java.util.Optional;
 public class MovieInfoController {
 
     private final MovieInfoService service;
-    private final MovieInfoConverter converter;
+    private final MovieInfoDtoConverter converter;
 
     @GetMapping("/movieinfos")
     public Flux<MovieInfoDto> getMovieInfos(@RequestParam Optional<Integer> year, @RequestParam Optional<String> name) {

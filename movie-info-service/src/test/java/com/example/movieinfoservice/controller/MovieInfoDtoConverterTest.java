@@ -9,9 +9,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MovieInfoConverterTest {
+class MovieInfoDtoConverterTest {
 
-    private final MovieInfoConverter movieInfoConverter = new MovieInfoConverter();
+    private final MovieInfoDtoConverter movieInfoDtoConverter = new MovieInfoDtoConverter();
     private final MovieInfo movieInfo = new MovieInfo("1",
             "Nobody",
             2021,
@@ -27,12 +27,12 @@ class MovieInfoConverterTest {
     @Test
     void shouldConvertToDto() {
 
-        assertThat(movieInfoConverter.toDto(movieInfo)).isEqualTo(movieInfoDto);
+        assertThat(movieInfoDtoConverter.toDto(movieInfo)).isEqualTo(movieInfoDto);
 
     }
 
     @Test
     void shouldConvertToDocument() {
-        assertThat(movieInfoConverter.toDocument(movieInfoDto)).isEqualTo(movieInfo);
+        assertThat(movieInfoDtoConverter.toDocument(movieInfoDto)).isEqualTo(movieInfo);
     }
 }

@@ -30,7 +30,7 @@ class MovieInfoControllerTest {
     private MovieInfoService service;
     @SpyBean
     @SuppressWarnings("unused")
-    private MovieInfoConverter converter;
+    private MovieInfoDtoConverter converter;
 
     @Test
     void shouldGetMovieInfoDtos() {

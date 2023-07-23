@@ -5,7 +5,7 @@ import com.example.movieinfoservice.controller.dto.MovieInfoDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieInfoConverter {
+public class MovieInfoDtoConverter {
 
     public MovieInfoDto toDto(MovieInfo movieInfo) {
         return new MovieInfoDto(movieInfo.getId(),

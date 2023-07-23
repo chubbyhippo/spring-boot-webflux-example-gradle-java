@@ -26,7 +26,7 @@ class ErrorHandlerTest {
     private MovieInfoService service;
     @SpyBean
     @SuppressWarnings("unused")
-    private MovieInfoConverter converter;
+    private MovieInfoDtoConverter converter;
 
     @Test
     void shouldValidateMovieInfoDtoWhenAdding() {
