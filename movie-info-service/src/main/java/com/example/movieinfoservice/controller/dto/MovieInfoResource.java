@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
 
-public record MovieInfoDto(
+public record MovieInfoResource(
         String id,
         @NotBlank
         String name,

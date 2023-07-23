@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoResource;
 import com.example.movieinfoservice.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +83,7 @@ class MovieInfoControllerTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(MovieInfoDto.class);
+                .expectBody(MovieInfoResource.class);
 
     }
 
@@ -107,7 +107,7 @@ class MovieInfoControllerTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfoResource.class)
                 .hasSize(1);
 
     }
@@ -132,7 +132,7 @@ class MovieInfoControllerTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfoResource.class)
                 .hasSize(1);
 
     }
@@ -165,13 +165,13 @@ class MovieInfoControllerTest {
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        var toBeSavedMovieInfoDto = new MovieInfoDto(null,
+        var toBeSavedMovieInfoDto = new MovieInfoResource(null,
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        var resultSavedMovieInfoDto = new MovieInfoDto("1",
+        var resultSavedMovieInfoDto = new MovieInfoResource("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -190,7 +190,7 @@ class MovieInfoControllerTest {
                 .exchange()
                 .expectStatus()
                 .isCreated()
-                .expectBody(MovieInfoDto.class)
+                .expectBody(MovieInfoResource.class)
                 .returnResult()
                 .getResponseBody();
 
@@ -202,7 +202,7 @@ class MovieInfoControllerTest {
 
     @Test
     void shouldValidateMovieInfoDtoWhenAdding() {
-        var invalidMovieInfoDto = new MovieInfoDto(null,
+        var invalidMovieInfoDto = new MovieInfoResource(null,
                 "",
                 -9999,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -220,7 +220,7 @@ class MovieInfoControllerTest {
     @Test
     void shouldUpdateMovieInfo() {
 
-        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
+        var toBeUpdatedMovieInfoDto = new MovieInfoResource("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -238,13 +238,13 @@ class MovieInfoControllerTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(MovieInfoDto.class);
+                .expectBody(MovieInfoResource.class);
     }
 
     @Test
     void shouldReturnNotFoundWhenUpdateMovieInfoThatDoesNotExist() {
 
-        var toBeUpdatedMovieInfoDto = new MovieInfoDto("1",
+        var toBeUpdatedMovieInfoDto = new MovieInfoResource("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),

@@ -12,15 +12,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-class MovieInfoDtoJsonTest {
+class MovieInfoResourceJsonTest {
 
     @Autowired
-    private JacksonTester<MovieInfoDto> json;
+    private JacksonTester<MovieInfoResource> json;
 
     @Test
     @SneakyThrows
     void shouldSerialize() {
-        var movieInfoDto = new MovieInfoDto("1",
+        var movieInfoDto = new MovieInfoResource("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -54,7 +54,7 @@ class MovieInfoDtoJsonTest {
                 """;
 
         assertThat(json.parse(content)).usingRecursiveComparison()
-                .isEqualTo(new MovieInfoDto("1",
+                .isEqualTo(new MovieInfoResource("1",
                         "Nobody",
                         2021,
                         List.of("Bob Odenkirk", "Connie Nielsen"),

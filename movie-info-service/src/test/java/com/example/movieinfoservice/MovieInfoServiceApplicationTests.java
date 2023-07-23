@@ -2,7 +2,7 @@ package com.example.movieinfoservice;
 
 import com.example.movieinfoservice.config.AbstractTestcontainers;
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoResource;
 import com.example.movieinfoservice.repository.MovieInfoRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,7 +72,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfoResource.class)
                 .hasSize(3);
 
     }
@@ -85,7 +85,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(MovieInfoDto.class);
+                .expectBody(MovieInfoResource.class);
 
     }
 
@@ -99,7 +99,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfoResource.class)
                 .hasSize(1);
 
     }
@@ -114,14 +114,14 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(MovieInfoDto.class)
+                .expectBodyList(MovieInfoResource.class)
                 .hasSize(1);
 
     }
 
     @Test
     void shouldAddMovieInfo() {
-        var toBeSavedMovieInfoDto = new MovieInfoDto(null,
+        var toBeSavedMovieInfoDto = new MovieInfoResource(null,
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
@@ -133,7 +133,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isCreated()
-                .expectBody(MovieInfoDto.class)
+                .expectBody(MovieInfoResource.class)
                 .value(movieInfoDto -> {
                     var id = movieInfoDto.id();
                     assertThat(id).isNotNull();
@@ -143,7 +143,7 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
     @Test
     void shouldUpdateMovieInfo() {
 
-        var toBeUpdatedMovieInfoDto = new MovieInfoDto(null,
+        var toBeUpdatedMovieInfoDto = new MovieInfoResource(null,
                 "Nobody",
                 2021,
                 List.of("Foo", "Connie Nielsen"),

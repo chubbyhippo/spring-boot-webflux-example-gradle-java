@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MovieInfoDtoValidationTest {
+class MovieInfoResourceValidationTest {
     private static Validator validator;
 
     @BeforeAll
@@ -66,7 +66,7 @@ class MovieInfoDtoValidationTest {
                               int expectedViolations,
                               String errorMessage) {
 
-        var movieInfoDto = new MovieInfoDto(id, name, year, actors, releaseDate);
+        var movieInfoDto = new MovieInfoResource(id, name, year, actors, releaseDate);
         var actualViolations = validator.validate(movieInfoDto);
 
         assertThat(actualViolations).hasSize(expectedViolations);

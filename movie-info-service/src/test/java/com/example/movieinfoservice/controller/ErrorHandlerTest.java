@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoDto;
+import com.example.movieinfoservice.controller.dto.MovieInfoResource;
 import com.example.movieinfoservice.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ class ErrorHandlerTest {
                 List.of("", "Connie Nielsen"),
                 LocalDate.of(2021, 4, 13));
 
-        var invalidMovieInfoDto = new MovieInfoDto(null,
+        var invalidMovieInfoDto = new MovieInfoResource(null,
                 "",
                 -9999,
                 List.of("", "Connie Nielsen"),
