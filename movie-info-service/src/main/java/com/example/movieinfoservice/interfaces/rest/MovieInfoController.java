@@ -1,6 +1,6 @@
-package com.example.movieinfoservice.controller;
+package com.example.movieinfoservice.interfaces.rest;
 
-import com.example.movieinfoservice.controller.dto.MovieInfoResource;
+import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import com.example.movieinfoservice.application.service.MovieInfoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

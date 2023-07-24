@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.controller.dto;
+package com.example.movieinfoservice.interfaces.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

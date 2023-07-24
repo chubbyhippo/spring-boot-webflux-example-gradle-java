@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.controller;
+package com.example.movieinfoservice.interfaces.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

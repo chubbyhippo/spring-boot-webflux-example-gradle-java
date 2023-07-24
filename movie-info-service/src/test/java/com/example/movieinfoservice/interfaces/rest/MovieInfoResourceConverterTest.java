@@ -1,7 +1,7 @@
-package com.example.movieinfoservice.controller;
+package com.example.movieinfoservice.interfaces.rest;
 
 import com.example.movieinfoservice.domain.entity.MovieInfo;
-import com.example.movieinfoservice.controller.dto.MovieInfoResource;
+import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
