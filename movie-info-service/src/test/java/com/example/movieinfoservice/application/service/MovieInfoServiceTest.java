@@ -1,5 +1,6 @@
-package com.example.movieinfoservice.infrastructure.service;
+package com.example.movieinfoservice.application.service;
 
+import com.example.movieinfoservice.application.service.MovieInfoService;
 import com.example.movieinfoservice.domain.entity.MovieInfo;
 import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
 import org.junit.jupiter.api.Test;

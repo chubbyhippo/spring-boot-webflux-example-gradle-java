@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.controller;
 
 import com.example.movieinfoservice.controller.dto.MovieInfoResource;
-import com.example.movieinfoservice.infrastructure.service.MovieInfoService;
+import com.example.movieinfoservice.application.service.MovieInfoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
