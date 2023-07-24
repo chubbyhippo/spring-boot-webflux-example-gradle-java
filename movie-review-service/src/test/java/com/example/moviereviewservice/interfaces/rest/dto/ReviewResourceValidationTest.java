@@ -1,5 +1,6 @@
-package com.example.moviereviewservice.dto;
+package com.example.moviereviewservice.interfaces.rest.dto;
 
+import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.dto;
+package com.example.moviereviewservice.interfaces.rest.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

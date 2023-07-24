@@ -1,6 +1,6 @@
 package com.example.moviereviewservice.interfaces.rest;
 
-import com.example.moviereviewservice.dto.ReviewResource;
+import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import com.example.moviereviewservice.entity.Review;
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;

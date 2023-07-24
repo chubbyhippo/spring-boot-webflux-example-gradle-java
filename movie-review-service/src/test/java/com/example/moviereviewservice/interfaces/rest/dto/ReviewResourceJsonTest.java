@@ -1,5 +1,6 @@
-package com.example.moviereviewservice.dto;
+package com.example.moviereviewservice.interfaces.rest.dto;
 
+import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
