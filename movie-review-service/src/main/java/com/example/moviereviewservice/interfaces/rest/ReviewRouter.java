@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.router;
+package com.example.moviereviewservice.interfaces.rest;
 
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.springframework.context.annotation.Bean;
