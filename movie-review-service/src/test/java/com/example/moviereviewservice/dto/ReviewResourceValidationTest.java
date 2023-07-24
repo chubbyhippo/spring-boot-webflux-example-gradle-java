@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ReviewDtoValidationTest {
+class ReviewResourceValidationTest {
     private static Validator validator;
 
     @BeforeAll
@@ -48,7 +48,7 @@ class ReviewDtoValidationTest {
                               int expectedViolations,
                               String errorMessage) {
 
-        var reviewDto = new ReviewDto(id, movieInfoId, comment, rating);
+        var reviewDto = new ReviewResource(id, movieInfoId, comment, rating);
         var actualViolations = validator.validate(reviewDto);
 
         assertThat(actualViolations).hasSize(expectedViolations);

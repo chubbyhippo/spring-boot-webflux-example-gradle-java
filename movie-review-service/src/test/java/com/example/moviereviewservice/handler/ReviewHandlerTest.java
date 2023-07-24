@@ -1,7 +1,7 @@
 package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
-import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.dto.ReviewResource;
 import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.exception.ReviewNotFoundException;
 import com.example.moviereviewservice.repository.ReviewRepository;
@@ -41,12 +41,12 @@ class ReviewHandlerTest {
     @SuppressWarnings("unchecked")
     void shouldAddReview() {
 
-        var requestDto = new ReviewDto(null, "1", "da best", 8.9);
+        var requestDto = new ReviewResource(null, "1", "da best", 8.9);
         var savedReview = new Review("1", "1", "da best", 8.9);
-        var responseDto = new ReviewDto("1", "1", "da best", 8.9);
+        var responseDto = new ReviewResource("1", "1", "da best", 8.9);
 
         when(repository.save(any())).thenReturn(Mono.just(savedReview));
-        when(validator.validate(any(ReviewDto.class))).thenReturn(new HashSet<>());
+        when(validator.validate(any(ReviewResource.class))).thenReturn(new HashSet<>());
         var request = MockServerRequest.builder()
                 .method(HttpMethod.POST)
                 .body(Mono.just(requestDto));
@@ -54,7 +54,7 @@ class ReviewHandlerTest {
         var serverResponseMono = handler.addReview(request);
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    var responseEntity = (EntityResponse<ReviewDto>) serverResponse;
+                    var responseEntity = (EntityResponse<ReviewResource>) serverResponse;
                     var entity = responseEntity.entity();
 
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.CREATED);
@@ -68,9 +68,9 @@ class ReviewHandlerTest {
 
     @Test
     void shouldThrowValidationExceptionWhenAddingInvalidReviewDto() {
-        var requestDto = new ReviewDto(null, "1", "da best", 8.9);
+        var requestDto = new ReviewResource(null, "1", "da best", 8.9);
 
-        when(validator.validate(any(ReviewDto.class))).thenThrow(ReviewDtoException.class);
+        when(validator.validate(any(ReviewResource.class))).thenThrow(ReviewDtoException.class);
         var request = MockServerRequest.builder()
                 .method(HttpMethod.POST)
                 .body(Mono.just(requestDto));
@@ -98,7 +98,7 @@ class ReviewHandlerTest {
 
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    var responseEntity = (EntityResponse<Flux<ReviewDto>>) serverResponse;
+                    var responseEntity = (EntityResponse<Flux<ReviewResource>>) serverResponse;
                     var entity = responseEntity.entity();
 
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
@@ -129,7 +129,7 @@ class ReviewHandlerTest {
 
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    var responseEntity = (EntityResponse<Flux<ReviewDto>>) serverResponse;
+                    var responseEntity = (EntityResponse<Flux<ReviewResource>>) serverResponse;
                     var entity = responseEntity.entity();
 
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
@@ -151,8 +151,8 @@ class ReviewHandlerTest {
                 .thenReturn(Mono.just(new Review("1", "1", "good", 9.0)));
 
 
-        var requestDto = new ReviewDto("1", "1", "the best!!", 9.0);
-        var responseDto = new ReviewDto("1", "1", "the best!!", 9.0);
+        var requestDto = new ReviewResource("1", "1", "the best!!", 9.0);
+        var responseDto = new ReviewResource("1", "1", "the best!!", 9.0);
 
         var request = MockServerRequest.builder()
                 .pathVariable("id", id)
@@ -166,7 +166,7 @@ class ReviewHandlerTest {
 
         StepVerifier.create(serverResponseMono)
                 .consumeNextWith(serverResponse -> {
-                    var responseEntity = (EntityResponse<ReviewDto>) serverResponse;
+                    var responseEntity = (EntityResponse<ReviewResource>) serverResponse;
                     var entity = responseEntity.entity();
 
                     assertThat(serverResponse.statusCode()).isEqualTo(HttpStatus.OK);
@@ -185,7 +185,7 @@ class ReviewHandlerTest {
         when(repository.findById(id))
                 .thenReturn(Mono.error(new ReviewNotFoundException("Review not found for the given id " + id)));
 
-        var requestDto = new ReviewDto("1", "1", "the best!!", 9.0);
+        var requestDto = new ReviewResource("1", "1", "the best!!", 9.0);
 
         var request = MockServerRequest.builder()
                 .pathVariable("id", id)

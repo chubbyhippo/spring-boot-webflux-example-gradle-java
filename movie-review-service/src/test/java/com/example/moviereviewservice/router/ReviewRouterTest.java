@@ -1,7 +1,7 @@
 package com.example.moviereviewservice.router;
 
 import com.example.moviereviewservice.document.Review;
-import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.dto.ReviewResource;
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class ReviewRouterTest {
     @Test
     void shouldAddReview() {
         var serverResponseMono = ServerResponse.status(HttpStatus.CREATED)
-                .bodyValue(new ReviewDto("1", "", "da best", 8.9));
+                .bodyValue(new ReviewResource("1", "", "da best", 8.9));
 
         when(handler.addReview(any())).thenReturn(serverResponseMono);
 
@@ -45,7 +45,7 @@ class ReviewRouterTest {
                 .exchange()
                 .expectStatus()
                 .isCreated()
-                .expectBody(ReviewDto.class);
+                .expectBody(ReviewResource.class);
 
         verify(handler, times(1)).addReview(any());
     }
@@ -73,10 +73,10 @@ class ReviewRouterTest {
     @Test
     void shouldGetReviews() {
         Mono<ServerResponse> serverResponseMono = ServerResponse.status(HttpStatus.OK)
-                .body(Flux.fromIterable(List.of(new ReviewDto("1", "1", "good", 7.0),
-                                new ReviewDto("2", "2", "better", 9.0),
-                                new ReviewDto("3", "3", "best", 8.0))),
-                        ReviewDto.class);
+                .body(Flux.fromIterable(List.of(new ReviewResource("1", "1", "good", 7.0),
+                                new ReviewResource("2", "2", "better", 9.0),
+                                new ReviewResource("3", "3", "best", 8.0))),
+                        ReviewResource.class);
 
         when(handler.getReviews(any())).thenReturn(serverResponseMono);
 
@@ -85,7 +85,7 @@ class ReviewRouterTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(ReviewDto.class)
+                .expectBodyList(ReviewResource.class)
                 .hasSize(3);
 
         verify(handler, times(1)).getReviews(any());
@@ -94,7 +94,7 @@ class ReviewRouterTest {
     @Test
     void shouldUpdateReview() {
         var serverResponseMono = ServerResponse.status(HttpStatus.OK)
-                .bodyValue(new ReviewDto("1", "", "da best", 0.9));
+                .bodyValue(new ReviewResource("1", "", "da best", 0.9));
 
         when(handler.updateReview(any())).thenReturn(serverResponseMono);
 
@@ -105,7 +105,7 @@ class ReviewRouterTest {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(ReviewDto.class)
+                .expectBody(ReviewResource.class)
                 .value(reviewDto -> {
                     var updatedRating = reviewDto.rating();
                     Assertions.assertThat(updatedRating).isEqualTo(0.9);

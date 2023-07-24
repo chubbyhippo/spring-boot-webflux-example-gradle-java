@@ -2,7 +2,7 @@ package com.example.moviereviewservice;
 
 import com.example.moviereviewservice.config.AbstractTestcontainers;
 import com.example.moviereviewservice.document.Review;
-import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.dto.ReviewResource;
 import com.example.moviereviewservice.repository.ReviewRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,14 +53,14 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
 
     @Test
     void shouldAddReview() {
-        var toBeSavedDto = new ReviewDto("", "4", "bad", 1.0);
+        var toBeSavedDto = new ReviewResource("", "4", "bad", 1.0);
         client.post()
                 .uri("/v1/reviews")
                 .bodyValue(toBeSavedDto)
                 .exchange()
                 .expectStatus()
                 .isCreated()
-                .expectBody(ReviewDto.class)
+                .expectBody(ReviewResource.class)
                 .value(reviewDto -> assertThat(reviewDto.id())
                         .isNotNull());
 
@@ -68,7 +68,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
 
     @Test
     void shouldReturnBadRequestStatusWhenAddingInvalidReview() {
-        var toBeSavedDto = new ReviewDto(null, "", "bad", -1.0);
+        var toBeSavedDto = new ReviewResource(null, "", "bad", -1.0);
         client.post()
                 .uri("/v1/reviews")
                 .bodyValue(toBeSavedDto)
@@ -88,7 +88,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(ReviewDto.class)
+                .expectBodyList(ReviewResource.class)
                 .hasSize(4);
 
     }
@@ -105,7 +105,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBodyList(ReviewDto.class)
+                .expectBodyList(ReviewResource.class)
                 .hasSize(2);
 
     }
@@ -114,7 +114,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
     void shouldUpdateReview() {
 
         var id = "1";
-        var toBeUpdated = new ReviewDto("", "4", "bad", 0.0);
+        var toBeUpdated = new ReviewResource("", "4", "bad", 0.0);
 
         client.put()
                 .uri("/v1/reviews/{id}", id)
@@ -122,7 +122,7 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(ReviewDto.class)
+                .expectBody(ReviewResource.class)
                 .value(reviewDto -> assertThat(reviewDto.rating())
                         .isEqualTo(0.0));
 

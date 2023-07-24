@@ -9,16 +9,16 @@ import org.springframework.boot.test.json.JacksonTester;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-class ReviewDtoJsonTest {
+class ReviewResourceJsonTest {
 
     @Autowired
-    private JacksonTester<ReviewDto> json;
+    private JacksonTester<ReviewResource> json;
 
     @Test
     @SneakyThrows
     void shouldSerialize() {
 
-        var reviewDto = new ReviewDto("1", "1", "good", 9.0);
+        var reviewDto = new ReviewResource("1", "1", "good", 9.0);
 
         assertThat(json.write(reviewDto)).extractingJsonPathStringValue("@.id")
                 .isEqualTo(reviewDto.id());
@@ -43,7 +43,7 @@ class ReviewDtoJsonTest {
                 """;
 
         assertThat(json.parse(content)).usingRecursiveComparison()
-                .isEqualTo(new ReviewDto("1",
+                .isEqualTo(new ReviewResource("1",
                         "1",
                         "good",
                         9.0));

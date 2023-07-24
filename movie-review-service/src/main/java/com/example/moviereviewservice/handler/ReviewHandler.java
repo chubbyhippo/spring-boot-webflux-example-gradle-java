@@ -1,7 +1,7 @@
 package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.document.Review;
-import com.example.moviereviewservice.dto.ReviewDto;
+import com.example.moviereviewservice.dto.ReviewResource;
 import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.exception.ReviewNotFoundException;
 import com.example.moviereviewservice.repository.ReviewRepository;
@@ -27,7 +27,7 @@ public class ReviewHandler {
     private final Validator validator;
 
     public Mono<ServerResponse> addReview(ServerRequest request) {
-        return request.bodyToMono(ReviewDto.class)
+        return request.bodyToMono(ReviewResource.class)
                 .doOnNext(this::validate)
                 .map(reviewDto -> new Review(null,
                         reviewDto.movieInfoId(),
@@ -35,14 +35,14 @@ public class ReviewHandler {
                         reviewDto.rating()))
                 .flatMap(repository::save)
                 .flatMap(review -> ServerResponse.status(HttpStatus.CREATED)
-                        .bodyValue(new ReviewDto(review.getId(),
+                        .bodyValue(new ReviewResource(review.getId(),
                                 review.getMovieInfoId(),
                                 review.getComment(),
                                 review.getRating())));
     }
 
-    private void validate(ReviewDto reviewDto) {
-        var constraintViolations = validator.validate(reviewDto);
+    private void validate(ReviewResource reviewResource) {
+        var constraintViolations = validator.validate(reviewResource);
         log.info("constraint violations : {}", constraintViolations);
         if (!constraintViolations.isEmpty()) {
             var errorMessage = constraintViolations.stream()
@@ -57,13 +57,13 @@ public class ReviewHandler {
     public Mono<ServerResponse> getReviews(ServerRequest request) {
         var movieInfoIdOptional = request.queryParam("movieInfoId");
 
-        Flux<ReviewDto> reviewDtoFlux;
+        Flux<ReviewResource> reviewDtoFlux;
         reviewDtoFlux = movieInfoIdOptional.map(s -> repository.findReviewsByMovieInfoId(s)
-                .map(review -> new ReviewDto(review.getId(),
+                .map(review -> new ReviewResource(review.getId(),
                         review.getMovieInfoId(),
                         review.getComment(),
                         review.getRating()))).orElseGet(() -> repository.findAll()
-                .map(review -> new ReviewDto(review.getId(),
+                .map(review -> new ReviewResource(review.getId(),
                         review.getMovieInfoId(),
                         review.getComment(),
                         review.getRating())));
@@ -79,14 +79,14 @@ public class ReviewHandler {
                 .switchIfEmpty(Mono.error(new ReviewNotFoundException("Review not found for the given id " + id)));
 
 
-        return existingReview.flatMap(review -> request.bodyToMono(ReviewDto.class)
+        return existingReview.flatMap(review -> request.bodyToMono(ReviewResource.class)
                 .map(reviewDto -> new Review(review.getId(),
                         reviewDto.movieInfoId(),
                         reviewDto.comment(),
                         reviewDto.rating()))
                 .flatMap(repository::save)
                 .flatMap(savedReview -> ServerResponse.ok()
-                        .bodyValue(new ReviewDto(savedReview.getId(),
+                        .bodyValue(new ReviewResource(savedReview.getId(),
                                 savedReview.getMovieInfoId(),
                                 savedReview.getComment(),
                                 savedReview.getRating()))));
