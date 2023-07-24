@@ -13,7 +13,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class ReviewRouter {
 
     @Bean
-    public RouterFunction<ServerResponse> reviewsRoute(ReviewHandler handler) {
+    RouterFunction<ServerResponse> reviewsRoute(ReviewHandler handler) {
         return route()
                 .nest(path("/v1/reviews"), builder ->
                         builder.GET("", handler::getReviews)
