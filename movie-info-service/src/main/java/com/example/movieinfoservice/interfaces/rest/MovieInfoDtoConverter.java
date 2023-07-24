@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovieInfoDtoConverter {
 
-    public MovieInfoResource toDto(MovieInfo movieInfo) {
+    MovieInfoResource toDto(MovieInfo movieInfo) {
         return new MovieInfoResource(movieInfo.getId(),
                 movieInfo.getName(),
                 movieInfo.getYear(),
@@ -15,7 +15,7 @@ public class MovieInfoDtoConverter {
                 movieInfo.getReleaseDate());
     }
 
-    public MovieInfo toDocument(MovieInfoResource movieInfoResource) {
+    MovieInfo toDocument(MovieInfoResource movieInfoResource) {
         return new MovieInfo(movieInfoResource.id(),
                 movieInfoResource.name(),
                 movieInfoResource.year(),

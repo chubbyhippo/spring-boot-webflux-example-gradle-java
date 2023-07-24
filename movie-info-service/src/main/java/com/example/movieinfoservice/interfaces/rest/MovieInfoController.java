@@ -1,7 +1,7 @@
 package com.example.movieinfoservice.interfaces.rest;
 
-import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import com.example.movieinfoservice.application.service.MovieInfoService;
+import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class MovieInfoController {
     private final MovieInfoDtoConverter converter;
 
     @GetMapping("/movieinfos")
-    public Flux<MovieInfoResource> getMovieInfos(@RequestParam Optional<Integer> year, @RequestParam Optional<String> name) {
+    Flux<MovieInfoResource> getMovieInfos(@RequestParam Optional<Integer> year, @RequestParam Optional<String> name) {
 
         return year.map(integer -> service.getMovieInfosByYear(integer)
                         .map(converter::toDto))
@@ -34,7 +34,7 @@ public class MovieInfoController {
     }
 
     @GetMapping("/movieinfos/{id}")
-    public Mono<ResponseEntity<MovieInfoResource>> getMovieInfoById(@PathVariable String id) {
+    Mono<ResponseEntity<MovieInfoResource>> getMovieInfoById(@PathVariable String id) {
         return service.getMovieInfoById(id)
                 .map(converter::toDto)
                 .map(ResponseEntity::ok)
@@ -43,15 +43,15 @@ public class MovieInfoController {
 
     @PostMapping("/movieinfos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfoResource> addMovieInfo(@RequestBody @Valid MovieInfoResource movieInfoResource) {
+    Mono<MovieInfoResource> addMovieInfo(@RequestBody @Valid MovieInfoResource movieInfoResource) {
         var movieInfo = converter.toDocument(movieInfoResource);
         return service.addMovieInfo(movieInfo)
                 .map(converter::toDto);
     }
 
     @PostMapping("/movieinfos/{id}")
-    public Mono<ResponseEntity<MovieInfoResource>> updateMovieInfoById(@RequestBody MovieInfoResource movieInfoResource,
-                                                                       @PathVariable String id) {
+    Mono<ResponseEntity<MovieInfoResource>> updateMovieInfoById(@RequestBody MovieInfoResource movieInfoResource,
+                                                                @PathVariable String id) {
         var movieInfo = converter.toDocument(movieInfoResource);
         return service.updateMovieInfo(movieInfo, id)
                 .map(converter::toDto)
@@ -61,7 +61,7 @@ public class MovieInfoController {
 
     @DeleteMapping("/movieinfos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteMovieInfoById(@PathVariable String id) {
+    Mono<Void> deleteMovieInfoById(@PathVariable String id) {
         return service.deleteMovieInfo(id);
     }
 }

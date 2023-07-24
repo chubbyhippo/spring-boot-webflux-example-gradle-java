@@ -18,7 +18,7 @@ public class ErrorHandler {
     @ExceptionHandler(WebExchangeBindException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleRequestBodyError(WebExchangeBindException exception) {
+    String handleRequestBodyError(WebExchangeBindException exception) {
         log.error("Exception caught in handleRequestBodyError : {}", exception.getMessage());
         var error = exception.getBindingResult()
                 .getAllErrors()
