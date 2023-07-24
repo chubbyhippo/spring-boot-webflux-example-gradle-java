@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.handler;
+package com.example.moviereviewservice.application.handler;
 
 import com.example.moviereviewservice.domain.entity.Review;
 import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;

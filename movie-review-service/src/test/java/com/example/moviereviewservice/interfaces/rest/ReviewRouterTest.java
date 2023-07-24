@@ -2,7 +2,7 @@ package com.example.moviereviewservice.interfaces.rest;
 
 import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import com.example.moviereviewservice.domain.entity.Review;
-import com.example.moviereviewservice.handler.ReviewHandler;
+import com.example.moviereviewservice.application.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.moviereviewservice.interfaces.rest;
 
-import com.example.moviereviewservice.handler.ReviewHandler;
+import com.example.moviereviewservice.application.handler.ReviewHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
