@@ -1,8 +1,7 @@
 package com.example.movieinfoservice.infrastructure.service;
 
-import com.example.movieinfoservice.document.MovieInfo;
+import com.example.movieinfoservice.domain.entity.MovieInfo;
 import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
-import com.example.movieinfoservice.infrastructure.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

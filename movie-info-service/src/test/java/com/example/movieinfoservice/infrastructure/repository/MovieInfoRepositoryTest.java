@@ -1,8 +1,7 @@
 package com.example.movieinfoservice.infrastructure.repository;
 
 import com.example.movieinfoservice.config.AbstractTestcontainers;
-import com.example.movieinfoservice.document.MovieInfo;
-import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
+import com.example.movieinfoservice.domain.entity.MovieInfo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

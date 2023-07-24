@@ -1,4 +1,4 @@
-package com.example.movieinfoservice.document;
+package com.example.movieinfoservice.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

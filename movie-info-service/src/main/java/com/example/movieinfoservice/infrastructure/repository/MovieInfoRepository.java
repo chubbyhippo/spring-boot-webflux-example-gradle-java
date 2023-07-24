@@ -1,6 +1,6 @@
 package com.example.movieinfoservice.infrastructure.repository;
 
-import com.example.movieinfoservice.document.MovieInfo;
+import com.example.movieinfoservice.domain.entity.MovieInfo;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 

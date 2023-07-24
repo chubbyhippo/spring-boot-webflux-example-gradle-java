@@ -1,6 +1,6 @@
 package com.example.movieinfoservice.controller;
 
-import com.example.movieinfoservice.document.MovieInfo;
+import com.example.movieinfoservice.domain.entity.MovieInfo;
 import com.example.movieinfoservice.controller.dto.MovieInfoResource;
 import org.junit.jupiter.api.Test;
 
