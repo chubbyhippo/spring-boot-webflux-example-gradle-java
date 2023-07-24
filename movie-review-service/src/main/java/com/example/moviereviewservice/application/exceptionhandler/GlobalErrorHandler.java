@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.exceptionhandler;
+package com.example.moviereviewservice.application.exceptionhandler;
 
 import com.example.moviereviewservice.application.exception.ReviewDtoException;
 import com.example.moviereviewservice.application.exception.ReviewNotFoundException;
