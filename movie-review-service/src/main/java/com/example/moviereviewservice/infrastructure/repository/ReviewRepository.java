@@ -1,6 +1,6 @@
 package com.example.moviereviewservice.infrastructure.repository;
 
-import com.example.moviereviewservice.entity.Review;
+import com.example.moviereviewservice.domain.entity.Review;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 

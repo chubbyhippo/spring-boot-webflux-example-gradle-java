@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.entity;
+package com.example.moviereviewservice.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

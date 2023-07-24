@@ -1,6 +1,6 @@
 package com.example.moviereviewservice.handler;
 
-import com.example.moviereviewservice.entity.Review;
+import com.example.moviereviewservice.domain.entity.Review;
 import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import com.example.moviereviewservice.exception.ReviewDtoException;
 import com.example.moviereviewservice.exception.ReviewNotFoundException;

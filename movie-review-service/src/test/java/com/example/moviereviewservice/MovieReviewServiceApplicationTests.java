@@ -1,7 +1,7 @@
 package com.example.moviereviewservice;
 
 import com.example.moviereviewservice.config.AbstractTestcontainers;
-import com.example.moviereviewservice.entity.Review;
+import com.example.moviereviewservice.domain.entity.Review;
 import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import com.example.moviereviewservice.infrastructure.repository.ReviewRepository;
 import org.junit.jupiter.api.AfterEach;
