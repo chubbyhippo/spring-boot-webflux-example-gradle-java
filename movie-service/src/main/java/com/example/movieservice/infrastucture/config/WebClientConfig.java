@@ -1,6 +1,6 @@
 package com.example.movieservice.infrastucture.config;
 
-import com.example.movieservice.infrastucture.service.MovieInfoDtoService;
+import com.example.movieservice.infrastucture.service.MovieInfoResourceService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,11 +15,11 @@ public class WebClientConfig {
     private String movieInfoServiceUrl;
 
     @Bean
-    MovieInfoDtoService movieInfoDtoService() {
+    MovieInfoResourceService movieInfoDtoService() {
         var webClient = WebClient.builder()
                 .baseUrl(movieInfoServiceUrl)
                 .build();
         var factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient)).build();
-        return factory.createClient(MovieInfoDtoService.class);
+        return factory.createClient(MovieInfoResourceService.class);
     }
 }
