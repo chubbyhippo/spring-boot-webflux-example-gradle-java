@@ -3,7 +3,7 @@ package com.example.moviereviewservice;
 import com.example.moviereviewservice.config.AbstractTestcontainers;
 import com.example.moviereviewservice.entity.Review;
 import com.example.moviereviewservice.dto.ReviewResource;
-import com.example.moviereviewservice.repository.ReviewRepository;
+import com.example.moviereviewservice.infrastructure.repository.ReviewRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

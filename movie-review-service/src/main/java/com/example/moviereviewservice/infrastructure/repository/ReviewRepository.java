@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.repository;
+package com.example.moviereviewservice.infrastructure.repository;
 
 import com.example.moviereviewservice.entity.Review;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

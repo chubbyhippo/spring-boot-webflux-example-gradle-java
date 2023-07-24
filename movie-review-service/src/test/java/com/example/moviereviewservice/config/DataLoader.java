@@ -1,7 +1,7 @@
 package com.example.moviereviewservice.config;
 
 import com.example.moviereviewservice.entity.Review;
-import com.example.moviereviewservice.repository.ReviewRepository;
+import com.example.moviereviewservice.infrastructure.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
