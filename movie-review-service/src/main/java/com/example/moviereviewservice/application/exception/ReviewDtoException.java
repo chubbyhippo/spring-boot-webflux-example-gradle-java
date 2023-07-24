@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.exception;
+package com.example.moviereviewservice.application.exception;
 
 public class ReviewDtoException extends RuntimeException {
     public ReviewDtoException(String errorMessage) {

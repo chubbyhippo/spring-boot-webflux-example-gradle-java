@@ -1,7 +1,7 @@
 package com.example.moviereviewservice.exceptionhandler;
 
-import com.example.moviereviewservice.exception.ReviewDtoException;
-import com.example.moviereviewservice.exception.ReviewNotFoundException;
+import com.example.moviereviewservice.application.exception.ReviewDtoException;
+import com.example.moviereviewservice.application.exception.ReviewNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.http.HttpStatus;

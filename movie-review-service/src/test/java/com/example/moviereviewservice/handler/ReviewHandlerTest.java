@@ -2,8 +2,8 @@ package com.example.moviereviewservice.handler;
 
 import com.example.moviereviewservice.domain.entity.Review;
 import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
-import com.example.moviereviewservice.exception.ReviewDtoException;
-import com.example.moviereviewservice.exception.ReviewNotFoundException;
+import com.example.moviereviewservice.application.exception.ReviewDtoException;
+import com.example.moviereviewservice.application.exception.ReviewNotFoundException;
 import com.example.moviereviewservice.infrastructure.repository.ReviewRepository;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
