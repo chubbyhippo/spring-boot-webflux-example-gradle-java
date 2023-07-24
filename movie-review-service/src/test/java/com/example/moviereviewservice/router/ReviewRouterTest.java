@@ -1,6 +1,6 @@
 package com.example.moviereviewservice.router;
 
-import com.example.moviereviewservice.document.Review;
+import com.example.moviereviewservice.entity.Review;
 import com.example.moviereviewservice.dto.ReviewResource;
 import com.example.moviereviewservice.handler.ReviewHandler;
 import org.assertj.core.api.Assertions;

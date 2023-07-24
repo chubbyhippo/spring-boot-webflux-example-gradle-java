@@ -1,4 +1,4 @@
-package com.example.moviereviewservice.document;
+package com.example.moviereviewservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
