@@ -1,6 +1,5 @@
 package com.example.moviereviewservice.interfaces.rest.dto;
 
-import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +21,13 @@ class ReviewResourceJsonTest {
         var reviewDto = new ReviewResource("1", "1", "good", 9.0);
 
         assertThat(json.write(reviewDto)).extractingJsonPathStringValue("@.id")
-                .isEqualTo(reviewDto.id());
+                .satisfies(input -> assertThat(input).isEqualTo(reviewDto.id()));
         assertThat(json.write(reviewDto)).extractingJsonPathStringValue("@.movieInfoId")
-                .isEqualTo(reviewDto.movieInfoId());
+                .satisfies(input -> assertThat(input).isEqualTo(reviewDto.movieInfoId()));
         assertThat(json.write(reviewDto)).extractingJsonPathStringValue("@.comment")
-                .isEqualTo(reviewDto.comment());
+                .satisfies(input -> assertThat(input).isEqualTo(reviewDto.comment()));
         assertThat(json.write(reviewDto)).extractingJsonPathNumberValue("@.rating")
-                .isEqualTo(reviewDto.rating());
+                .satisfies(input -> assertThat(input).isEqualTo(reviewDto.rating()));
     }
 
     @Test
@@ -43,11 +42,12 @@ class ReviewResourceJsonTest {
                 }
                 """;
 
+        var expected = new ReviewResource("1",
+                "1",
+                "good",
+                9.0);
         assertThat(json.parse(content)).usingRecursiveComparison()
-                .isEqualTo(new ReviewResource("1",
-                        "1",
-                        "good",
-                        9.0));
+                .satisfies(input -> assertThat(input).isEqualTo(expected));
 
     }
 }
