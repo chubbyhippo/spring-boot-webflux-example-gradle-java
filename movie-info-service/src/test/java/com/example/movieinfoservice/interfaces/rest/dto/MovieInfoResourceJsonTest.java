@@ -53,7 +53,7 @@ class MovieInfoResourceJsonTest {
                 }
                 """;
 
-        MovieInfoResource expected = new MovieInfoResource("1",
+        var expected = new MovieInfoResource("1",
                 "Nobody",
                 2021,
                 List.of("Bob Odenkirk", "Connie Nielsen"),
