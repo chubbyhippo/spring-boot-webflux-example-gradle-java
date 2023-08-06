@@ -1,3 +1,5 @@
 infrastructure:
   url:
-    movie-info-service: http://localhost:8080/v1/movieinfos
+    movie-info-service: http://localhost:8080
+server:
+  port: 8082
