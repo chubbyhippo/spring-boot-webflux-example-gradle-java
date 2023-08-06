@@ -1,6 +1,5 @@
-package com.example.movieinfoservice.interfaces.rest;
+package com.example.movieinfoservice.interfaces.rest.dto;
 
-import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
