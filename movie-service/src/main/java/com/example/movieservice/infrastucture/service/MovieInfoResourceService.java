@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 
 public interface MovieInfoResourceService {
 
-    @GetExchange("/{id}")
+    @GetExchange("/v1/movieinfos/{id}")
     Mono<MovieInfoResource> getMovieInfoById(@PathVariable String id);
 }
