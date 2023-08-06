@@ -33,7 +33,7 @@ class MovieInfoControllerTest {
     private MovieInfoDtoConverter converter;
 
     @Test
-    void shouldGetMovieInfoDtos() {
+    void shouldGetMovieInfos() {
         var movieInfos = List.of(
                 new MovieInfo("1",
                         "Nobody",
