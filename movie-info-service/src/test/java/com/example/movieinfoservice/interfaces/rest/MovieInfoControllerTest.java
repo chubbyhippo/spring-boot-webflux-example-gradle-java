@@ -1,8 +1,8 @@
 package com.example.movieinfoservice.interfaces.rest;
 
+import com.example.movieinfoservice.application.service.MovieInfoService;
 import com.example.movieinfoservice.domain.entity.MovieInfo;
 import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
-import com.example.movieinfoservice.application.service.MovieInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -201,6 +201,7 @@ class MovieInfoControllerTest {
     }
 
     @Test
+    @SuppressWarnings("DataFlowIssue")
     void shouldValidateMovieInfoDtoWhenAdding() {
         var invalidMovieInfoDto = new MovieInfoResource(null,
                 "",
