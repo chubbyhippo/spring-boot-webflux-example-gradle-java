@@ -2,8 +2,8 @@ package com.example.movieinfoservice;
 
 import com.example.movieinfoservice.config.AbstractTestcontainers;
 import com.example.movieinfoservice.domain.entity.MovieInfo;
-import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import com.example.movieinfoservice.infrastructure.repository.MovieInfoRepository;
+import com.example.movieinfoservice.interfaces.rest.dto.MovieInfoResource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +28,8 @@ class MovieInfoServiceApplicationTests extends AbstractTestcontainers {
 
     @Test
     void shouldRunMain() {
-        assertThatNoException().isThrownBy(() -> TestMovieInfoServiceApplication.main(new String[]{}));
-
+        var randomPortNumber = "--server.port=0";
+        assertThatNoException().isThrownBy(() -> TestMovieInfoServiceApplication.main(new String[]{randomPortNumber}));
     }
 
 
