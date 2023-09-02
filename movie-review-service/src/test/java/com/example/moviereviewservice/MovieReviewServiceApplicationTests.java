@@ -2,8 +2,8 @@ package com.example.moviereviewservice;
 
 import com.example.moviereviewservice.config.AbstractTestcontainers;
 import com.example.moviereviewservice.domain.entity.Review;
-import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import com.example.moviereviewservice.infrastructure.repository.ReviewRepository;
+import com.example.moviereviewservice.interfaces.rest.dto.ReviewResource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,8 @@ class MovieReviewServiceApplicationTests extends AbstractTestcontainers {
 
     @Test
     void shouldLoadMain() {
-        assertThatNoException().isThrownBy(() -> TestMovieReviewServiceApplication.main(new String[]{}));
+        var randomPortNumber = "--server.port=0";
+        assertThatNoException().isThrownBy(() -> TestMovieReviewServiceApplication.main(new String[]{randomPortNumber}));
     }
 
     @BeforeEach
